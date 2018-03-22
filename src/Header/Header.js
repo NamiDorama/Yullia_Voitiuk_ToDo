@@ -5,8 +5,8 @@ import './header.scss'
 const Heading = () => <h1>Here's the heading!</h1>;
 
 export const Header = () => (
-  <React.Fragment>
+  <div id="header">
     <Heading />
     <Navigation />
-  </React.Fragment>
+  </div>
 );

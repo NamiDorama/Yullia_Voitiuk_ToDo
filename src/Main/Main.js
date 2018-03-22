@@ -1,10 +1,11 @@
 import React from 'react';
 import { Aside } from '../Aside';
-import { Content } from '../Content'
+import { Content } from '../Content';
+import './main.scss';
 
 export const Main = () => (
-  <React.Fragment>
+  <div id="main">
     <Aside />
     <Content />
-  </React.Fragment>
+  </div>
 );
