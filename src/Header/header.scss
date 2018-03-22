@@ -1,0 +1,12 @@
+@import '../variables.scss';
+
+#header {
+  display: $normal-display;
+  padding: $normal-margin;
+  border-bottom: 2px solid darken($normal-bgc, 50%);
+
+  h1 {
+    margin: 0;
+    width: 30%;
+  }
+}
