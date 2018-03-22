@@ -1,0 +1,7 @@
+@import '../variables.scss';
+
+#main {
+  display: $normal-display;
+  justify-content: space-between;
+  margin: $normal-margin;
+}
