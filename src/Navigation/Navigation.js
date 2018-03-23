@@ -1,13 +1,13 @@
 import React from 'react';
 import './navigation.scss'
 
-export const Navigation = () => (
+export const Navigation = ({ islogin }) => (
 	<nav className="main-nav">
 		<ul>
-			<li>Home</li>
-			<li>Pages</li>
-			<li>About Group</li>
-			<li>Songs</li>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Songs</a></li>
+
+			{islogin && <li><a href="#">User</a></li>}
 		</ul>
-	</nav>
+  </nav>
 );

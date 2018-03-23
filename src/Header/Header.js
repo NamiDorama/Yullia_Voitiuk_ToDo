@@ -7,6 +7,6 @@ const Heading = () => <h1>Here's the heading!</h1>;
 export const Header = () => (
   <div id="header">
     <Heading />
-    <Navigation />
+    <Navigation islogin />
   </div>
 );

@@ -20,7 +20,11 @@ const plugins = [
   new ExtractTextPlugin({
     filename: 'styles.css',
     allChunks: true
-  })
+  }),
+	new webpack.ProvidePlugin({
+		React: 'react',
+		Component: ['react', 'Component']
+	})
 ];
 
 module.exports = {
@@ -53,7 +57,15 @@ module.exports = {
             {loader: "sass-loader"}
           ]
         })
-      }
+      },
+
+	    {
+		    enforce: 'pre',
+		    test: /\.js$/,
+		    exclude: /node_modules/,
+		    loader: 'eslint-loader',
+	    }
+
 
     ]
   },
@@ -65,6 +77,8 @@ module.exports = {
       chunks: 'all'
     },
   },
+
+  mode: 'development',
 
   devServer: {
     contentBase: path.resolve('dist'),
