@@ -1,55 +1,20 @@
-import React from 'react';
+import { Greeting } from '../Greeting';
+import { NumberList } from '../NumberList';
+import { UsersList } from '../UsersList';
 import { Aside } from '../Aside';
 import { Content } from '../Content';
+import { users } from '../consts';
 import './main.scss';
-
-const List = ({ list, field, ordered }) => {
-  const items = (list || []).map(el => <li key={el.id}>{ el[field || 'title'] }</li>);
-
-  return ordered ? <ol>{items}</ol> : <ul>{items}</ul>;
-};
-
-const users = [
-  { id: 123, name: 'Patrik' },
-  { id: 345, name: 'Aaron' },
-  { id: 46, name: 'Teresa' },
-  { id: 789, name: 'John' }
-];
-
-const Comps = {
-  List() {
-    return (
-      <ul>
-        <li>1</li>
-        <li>2</li>
-      </ul>
-    );
-  },
-  Message(props) {
-    return <mark>{props.text}</mark>;
-  }
-};
-
-const Test = () => (
-  <div>
-    <Comps.List />
-    <Comps.Message text="Test me" />
-  </div>
-);
-
 
 export const Main = () => (
   <React.Fragment>
-    <List
-      list={users}
-      field="name"
+    <Greeting name="Yuliia" />
+    <NumberList
+      from={3}
+      to={7}
+      odd
     />
-    <List
-      list={users}
-      field="name"
-      ordered
-    />
-    <Test />
+    <UsersList users={users} />
     <main id="main">
       <Aside />
       <Content />

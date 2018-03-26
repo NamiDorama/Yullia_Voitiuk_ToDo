@@ -1,4 +1,3 @@
-import React from 'react';
 import './content.scss';
 
 export const Content = () => (
