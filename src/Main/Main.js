@@ -1,4 +1,3 @@
-import React from 'react';
 import { Greeting } from '../Greeting';
 import { NumberList } from '../NumberList';
 import { UsersList } from '../UsersList';
@@ -11,9 +10,9 @@ export const Main = () => (
   <React.Fragment>
     <Greeting name="Yuliia" />
     <NumberList
-      from="3"
-      to="10"
-      even
+      from={3}
+      to={7}
+      odd
     />
     <UsersList users={users} />
     <main id="main">

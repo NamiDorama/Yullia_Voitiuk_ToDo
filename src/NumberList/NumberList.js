@@ -1,12 +1,10 @@
-import React from 'react';
 import './numberList.scss';
 
 export const NumberList = (props) => {
   const num = [];
-  for (let i = +props.from; i <= +props.to; i++) {
+  for (let i = props.from; i <= props.to; i++) {
     num.push(i);
   }
-  const items = num.map(item => <li key={item}>{item}</li>);
 
   if (props.odd) {
     return (
@@ -30,5 +28,6 @@ export const NumberList = (props) => {
     );
   }
 
+  const items = num.map(item => <li key={item}>{item}</li>);
   return <ul>{items}</ul>;
 };
