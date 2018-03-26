@@ -8,10 +8,4 @@
   h2 {
     border-bottom: 1px solid darken($normal-bgc, 50%);
   }
-
-  .song {
-    column-count: 3;
-    column-rule: 1px solid darken($normal-bgc, 50%);
-    column-gap: 40px;
-  }
 }
