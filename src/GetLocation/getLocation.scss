@@ -1,0 +1,13 @@
+.get-location {
+  button {
+    margin: 25px 0 0;
+    background-color: #3696cf;
+    border: 1px solid darken(#3696cf, 20%);
+    box-shadow: 1px 2px 5px darken(#3696cf, 20%);
+  }
+
+  span {
+    display: inline-block;
+    margin-left: 25px;
+  }
+}

@@ -1,4 +1,5 @@
 import { Button } from '../Button';
+import { GetLocation } from '../GetLocation';
 import './content.scss';
 
 class Header extends Component {
@@ -12,5 +13,6 @@ export const Content = () => (
     <Header />
     <h2>Content component</h2>
     <Button />
+    <GetLocation />
   </div>
 );

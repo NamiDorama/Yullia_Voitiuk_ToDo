@@ -17,11 +17,10 @@ export class Main extends Component {
   getUsers() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(users => this.setState({users}));
+      .then(users => this.setState({ users }));
   }
 
   render() {
-
     return (
       <React.Fragment>
         <Greeting name="Yuliia" />
@@ -30,7 +29,7 @@ export class Main extends Component {
           to={7}
           odd
         />
-        <UsersList users={ this.state.users } />
+        <UsersList users={this.state.users} />
         <main id="main">
           <Aside />
           <Content />

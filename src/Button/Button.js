@@ -7,7 +7,7 @@ export class Button extends Component {
 
   changeClassName = () => {
     const className = this.state.className ? null : 'active';
-    this.setState({ className })
+    this.setState({ className });
   };
 
   render() {
@@ -19,10 +19,10 @@ export class Button extends Component {
         >
           {this.state.className ? 'Hide (active class)' : 'Show (no class)'}
         </button>
-      {
-        this.state.className && <span>Hello here! :)</span>
-      }
+        {
+          this.state.className && <span>Hello here! :)</span>
+        }
       </React.Fragment>
-    )
+    );
   }
 }

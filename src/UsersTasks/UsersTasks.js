@@ -11,7 +11,7 @@ export class UsersTasks extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="users-task-wrapper">
         <h3>Hello{` , ${this.state.userName}` || ' , user'}!</h3>
         <div className="tasks-list">
           <ul>
@@ -24,7 +24,7 @@ export class UsersTasks extends Component {
         <p>
           <a href="/task-list">Go to the task list</a>
         </p>
-      </React.Fragment>
-    )
+      </div>
+    );
   }
 }

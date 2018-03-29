@@ -6,10 +6,12 @@ button {
   outline: none;
   background-color: #4fa84e;
   border: 1px solid darken(#4fa84e, 20%);
+  box-shadow: 1px 2px 5px darken(#4fa84e, 20%);
   margin-right: 20px;
 }
 
 button.active {
   background-color: #a8302c;
   border: 1px solid darken(#a8302c, 20%);
+  box-shadow: 1px 2px 5px darken(#a8302c, 20%);
 }
