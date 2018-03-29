@@ -1,1 +1,1 @@
-export const User = ({ firstName, lastName, age }) => <li>{firstName} {lastName}, {age}</li>;
+export const User = ({ id, name, getUserPosts }) => <li onClick={() => getUserPosts(id)}>{name}</li>;

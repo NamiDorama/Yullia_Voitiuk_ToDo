@@ -1,0 +1,20 @@
+@import '../variables';
+
+.users-task-wrapper {
+  border: 1px solid darken($normal-bgc, 60%);
+  padding: $normal-margin;
+
+  h3 {
+    margin: 0;
+  }
+
+  .tasks-list {
+    ul {
+      li {
+        span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

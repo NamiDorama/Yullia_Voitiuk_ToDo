@@ -1,4 +1,12 @@
-.users-heading {
-  text-align: left;
-  margin-left: 5%;
+.users-wrapper {
+  display: flex;
+  justify-content: flex-start;
+
+  .users {
+    width: 20%;
+  }
+
+  .posts-wrapper {
+    width: 70%;
+  }
 }

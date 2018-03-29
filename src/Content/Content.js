@@ -1,4 +1,5 @@
-import { Counter } from './Counter';
+import { Button } from '../Button';
+import { GetLocation } from '../GetLocation';
 import './content.scss';
 
 class Header extends Component {
@@ -10,7 +11,8 @@ class Header extends Component {
 export const Content = () => (
   <div id="content">
     <Header />
-    <Counter />
     <h2>Content component</h2>
+    <Button />
+    <GetLocation />
   </div>
 );
