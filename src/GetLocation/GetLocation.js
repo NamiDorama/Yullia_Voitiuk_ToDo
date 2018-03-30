@@ -12,20 +12,20 @@ export class GetLocation extends Component {
       navigator.geolocation.getCurrentPosition(
         location => this.setState({ location }),
         () => this.setState({ error: 'Sorry, something has gone wrong! :(' }),
-        {maximumAge:600000, timeout:5000, enableHighAccuracy: true}
+        { maximumAge: 600000, timeout: 5000, enableHighAccuracy: true }
       );
     }
   };
 
   render() {
-    const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+    const MyMapComponent = withScriptjs(withGoogleMap(props => (
       <GoogleMap
         defaultZoom={15}
         defaultCenter={{ lat: props.lat, lng: props.lng }}
       >
         <Marker position={{ lat: props.lat, lng: props.lng }} />
       </GoogleMap>
-    ));
+    )));
 
     return (
       <div className="get-location">
@@ -43,10 +43,11 @@ export class GetLocation extends Component {
                 isMarkerShown
                 lat={this.state.location.coords.latitude}
                 lng={this.state.location.coords.longitude}
-                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj2pn69UXjrrph-__AW_MxWRp04yIhuEY&v=3.exp&libraries=geometry,drawing,places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj2pn69UXjrrph-__AW_MxWRp04yIhuEY
+                &v=3.exp&libraries=geometry,drawing,places"
+                loadingElement={<div style={{ height: '100%' }} />}
+                containerElement={<div style={{ height: '400px' }} />}
+                mapElement={<div style={{ height: '100%' }} />}
               />
             </React.Fragment> : <span>{this.state.error}</span>
         }
