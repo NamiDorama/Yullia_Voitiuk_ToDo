@@ -1,6 +1,6 @@
 import { Button } from '../Button';
 import { GetLocation } from '../GetLocation';
-import { Form } from '../Form';
+import { Timer } from '../Timer';
 import './content.scss';
 
 class Header extends Component {
@@ -15,6 +15,6 @@ export const Content = () => (
     <h2>Content component</h2>
     <Button />
     <GetLocation />
-    <Form />
+    <Timer />
   </div>
 );
