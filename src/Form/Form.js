@@ -1,71 +1,65 @@
-export class Form extends Component {
-  users = ['Admin', 'User', 'Guest'];
+import './form.scss';
 
+export class Form extends Component {
   state = {
+    email: '',
     name: '',
-    age: 22,
-    role: this.users[0],
-    mail: false
+    surname: '',
+    password1: '',
+    password2: ''
   };
 
   changeInput = ({ target }) => {
-    if (target.type === 'checkbox') {
-      this.setState({ [target.name]: target.checked });
-      return;
-    }
-
     this.setState({ [target.name]: target.value });
   };
 
   render() {
-    const { name, age, role, mail } = this.state;
-    const code = name.split('').reduce((prev, next) => prev + next.charCodeAt(), '');
+    const {
+      email, name, surname, password1, password2
+    } = this.state;
 
     return (
-      <React.Fragment>
-        <h2>This is Form</h2>
-        <form>
+      <div className="form-block">
+        <h3>This is Form</h3>
+        <form className="form">
           <input
-            name="name"
             type="text"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={this.changeInput}
+          />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
             value={name}
             onChange={this.changeInput}
           />
-          <br/>
           <input
-            name="age"
-            type="number"
-            value={age}
+            type="text"
+            name="surname"
+            placeholder="Surname"
+            value={surname}
             onChange={this.changeInput}
           />
-          <br/>
-          <select
-            name="role"
-            value={role}
+          <input
+            type="text"
+            name="password1"
+            placeholder="Enter password"
+            value={password1}
             onChange={this.changeInput}
-          >
-            {this.users.map(user => (
-              <option
-                value={user}
-                key={user}
-              >
-                {user}
-              </option>)
-            )}
-          </select>
-          <br/>
-          <label>
-            <input
-              type="checkbox"
-              name="mail"
-              checked={mail}
-              onChange={this.changeInput}
-            />
-            Our checkbox
-          </label>
-
+          />
+          <input
+            type="text"
+            name="password2"
+            placeholder="Repeat password"
+            value={password2}
+            onChange={this.changeInput}
+          />
+          <button type="submit">Submit</button>
         </form>
-      </React.Fragment>
+      </div>
     );
   }
 }

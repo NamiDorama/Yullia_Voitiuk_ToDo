@@ -25,8 +25,8 @@ export class Main extends Component {
       <React.Fragment>
         <Greeting name="Yuliia" />
         <NumberList
-          from={3}
-          to={7}
+          from={1}
+          to={3}
           odd
         />
         <UsersList users={this.state.users} />
