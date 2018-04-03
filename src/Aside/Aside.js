@@ -6,6 +6,6 @@ export const Aside = () => (
   <aside>
     <h3>This is aside component</h3>
     <UsersTasks />
-    <Form />
+    <Form disabled={['email']} />
   </aside>
 );
