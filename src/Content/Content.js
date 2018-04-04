@@ -1,6 +1,7 @@
 import { Button } from '../Button';
 import { GetLocation } from '../GetLocation';
 import { Timer } from '../Timer';
+import { Edit } from '../Edit';
 import './content.scss';
 
 class Header extends Component {
@@ -16,5 +17,6 @@ export const Content = () => (
     <Button />
     <GetLocation />
     <Timer />
+    <Edit function={(text) => console.log(text)} />
   </div>
 );
