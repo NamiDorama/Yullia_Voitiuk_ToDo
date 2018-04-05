@@ -1,0 +1,12 @@
+.task-list {
+
+  ul {
+    list-style: none;
+    display: block;
+
+    .not-completed {
+      text-decoration: line-through;
+      color: #7c7c7c;
+    }
+  }
+}
