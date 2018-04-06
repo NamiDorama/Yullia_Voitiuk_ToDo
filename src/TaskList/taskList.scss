@@ -1,12 +1,51 @@
 .task-list {
 
+  input {
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: 1px solid #908600;
+    box-shadow: 1px 2px 5px #908600;
+    border-radius: 20px;
+    outline: none;
+    background-color: #fff890;
+  }
+
   ul {
     list-style: none;
     display: block;
 
-    .not-completed {
-      text-decoration: line-through;
-      color: #7c7c7c;
+    li {
+      margin: 5px 0;
+
+      &.not-completed {
+        text-decoration: line-through;
+        color: #7c7c7c;
+      }
+
+      span {
+        display: inline-block;
+        margin-left: 15px;
+        cursor: pointer;
+        vertical-align: middle;
+
+        &.delete {
+          background: url('../img/delete.png') no-repeat center;
+          height: 25px;
+          width: 18px;
+        }
+
+        &.completed {
+          background: url('../img/completed.png') no-repeat center;
+          height: 25px;
+          width: 18px;
+        }
+
+        &.in-progress {
+          background: url('../img/in-progress.png') no-repeat center;
+          height: 25px;
+          width: 25px;
+        }
+      }
     }
   }
 }
