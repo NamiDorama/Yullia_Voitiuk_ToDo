@@ -18,7 +18,7 @@ export const Content = () => (
     <Button />
     <GetLocation />
     <Timer />
-    <Edit function={(text) => console.log(text)} />
+    <Edit callbackFunc={(text) => console.log(text)} />
     <TaskList />
   </div>
 );

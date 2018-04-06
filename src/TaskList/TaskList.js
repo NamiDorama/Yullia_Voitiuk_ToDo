@@ -11,8 +11,7 @@ export class TaskList extends Component {
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(data => data.json())
       .then(data => {
-        const tasks = data.filter((task, index) => index < 10);
-        this.originTasks = tasks;
+        this.originTasks = data.slice(0, 10);
         this.setState({ todos: this.originTasks });
       });
   }
@@ -25,7 +24,7 @@ export class TaskList extends Component {
     }
 
     if (target.value.trim() === '') {
-      this.setState({ todos: this.originTasks });
+      this.setState({ todos: [...this.originTasks] });
       return;
     }
   };

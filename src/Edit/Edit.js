@@ -13,7 +13,7 @@ export class Edit extends Component {
       const inputText = target.value;
 
       this.setState({ inputText });
-      if (this.props.function) this.props.function(inputText);
+      if (this.props.callbackFunc) this.props.callbackFunc(inputText);
     }
   };
 

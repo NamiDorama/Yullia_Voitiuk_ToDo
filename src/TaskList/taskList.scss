@@ -17,7 +17,7 @@
     li {
       margin: 5px 0;
 
-      &.not-completed {
+      &.completed {
         text-decoration: line-through;
         color: #7c7c7c;
       }
