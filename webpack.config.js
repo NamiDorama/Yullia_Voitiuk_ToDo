@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const images = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
 
 let stylesLoader = [
   {loader: 'style-loader'},
@@ -24,7 +26,10 @@ const plugins = [
 	new webpack.ProvidePlugin({
 		React: 'react',
 		Component: ['react', 'Component']
-	})
+	}),
+  new CopyWebpackPlugin([
+    ...images.map(ext => ({ from: `**/*/*.${ext}`, to: 'img/[name].[ext]' }))
+  ])
 ];
 
 module.exports = {
@@ -65,7 +70,7 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 8000,
-            name: 'img/[hash]-[name].[ext]'
+            name: 'img/[name].[ext]'
           }
         }]
       },

@@ -5,6 +5,10 @@
   padding: $normal-margin;
   border-bottom: 2px solid darken($normal-bgc, 50%);
 
+  img {
+    margin-right: $normal-margin;
+  }
+
   h1 {
     margin: 0;
     width: 30%;

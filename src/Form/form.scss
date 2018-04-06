@@ -39,6 +39,11 @@
     box-shadow: 1px 2px 5px darken($normal-bgc, 60%);
     margin: 10px auto;
     display: block;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($normal-bgc, 20%);
+    }
   }
 }
 

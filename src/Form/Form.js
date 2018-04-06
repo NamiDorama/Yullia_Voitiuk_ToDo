@@ -1,3 +1,4 @@
+import ProptTypes from 'prop-types';
 import './form.scss';
 
 export class Form extends Component {
@@ -53,7 +54,11 @@ export class Form extends Component {
   };
 
   getDisabledState() {
-    return this.fields.some(({ label }) => {
+    const { excluded, disabled } = this.props;
+
+    return this.fields
+      .filter(({ label }) => !excluded.includes(label) && !disabled.includes(label))
+      .some(({ label }) => {
       const { value, error } = this.state[label];
       return !value || error;
     });
@@ -73,12 +78,22 @@ export class Form extends Component {
 
     if (error) return;
 
-    console.log(this.state);
+    console.log(this.getFormValue());
   };
+
+  getFormValue() {
+    const form = {};
+
+    this.fields.forEach(field => {
+      form[field.label] = this.state[field.label].value;
+    });
+
+    return form;
+  }
 
   render() {
     const { state, fields } = this;
-    const { excluded = [], disabled = [] } = this.props;
+    const { excluded, disabled } = this.props;
 
     return (
       <div className="form-block">
@@ -122,3 +137,13 @@ export class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  excluded: ProptTypes.array,
+  disabled: ProptTypes.array
+};
+
+Form.defaultProps = {
+  excluded: [],
+  disabled: []
+};
