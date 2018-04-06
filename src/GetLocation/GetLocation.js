@@ -29,6 +29,7 @@ export class GetLocation extends Component {
 
     return (
       <div className="get-location">
+        <h2>This is GetLocation</h2>
         <button onClick={this.getPosition}>
           Get your location
         </button>
