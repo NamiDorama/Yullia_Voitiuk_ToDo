@@ -9,35 +9,10 @@ export class GetLocation extends Component {
       lat: null,
       lng: null
     },
+    show: false
   };
 
-  getPosition = () => {
-    const latInput = document.getElementById('lat');
-    const lngInput = document.getElementById('lng');
-    console.log(!!(latInput.value && lngInput.value));
-
-    if (!!(latInput.value && lngInput.value)) {
-      console.log(latInput.value, lngInput.value);
-      const latValue = +latInput.value;
-      const latMin = +latInput.min;
-      const lngMax = +latInput.max;
-      const value = +lngInput.value;
-      const min = +lngInput.min;
-      const max = +lngInput.max;
-
-      console.log(latValue, value);
-
-      if ((latValue >= latMin && latValue <= lngMax) && (value >= min && value <= max)) {
-        console.log('hi');
-        this.setState({ usersLocation: {
-          [latInput.name]: latValue,
-          [lngInput.name]: value
-        }
-        });
-        return;
-      }
-    }
-
+  componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         location => this.setState({ location }),
@@ -45,6 +20,27 @@ export class GetLocation extends Component {
         { maximumAge: 600000, timeout: 5000, enableHighAccuracy: true }
       );
     }
+  }
+
+  getPosition = () => {
+    if (this.latInput.value && this.lngInput.value) {
+      const latValue = +this.latInput.value;
+      const latMin = +this.latInput.min;
+      const lngMax = +this.latInput.max;
+      const value = +this.lngInput.value;
+      const min = +this.lngInput.min;
+      const max = +this.lngInput.max;
+
+      if ((latValue >= latMin && latValue <= lngMax) && (value >= min && value <= max)) {
+        this.setState({ usersLocation: {
+          [this.latInput.name]: latValue,
+          [this.lngInput.name]: value
+        }
+        });
+      }
+    }
+
+    this.setState({ show: true });
   };
 
   render() {
@@ -67,6 +63,7 @@ export class GetLocation extends Component {
           min="-90"
           max="90"
           name="lat"
+          ref={el => this.latInput = el}
         />
         <input
           id="lng"
@@ -75,12 +72,13 @@ export class GetLocation extends Component {
           min="-180"
           max="180"
           name="lng"
+          ref={el => this.lngInput = el}
         />
         <button onClick={this.getPosition}>
           Get your location
         </button>
         {
-          this.state.location || this.state.usersLocation.lat && this.state.usersLocation.lng ?
+          this.state.show ?
             <React.Fragment>
               <div>
                 <span>Your latitude: {this.state.location.coords.latitude}</span>
