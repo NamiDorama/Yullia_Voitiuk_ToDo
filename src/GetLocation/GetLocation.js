@@ -40,6 +40,14 @@ export class GetLocation extends Component {
       }
     }
 
+    if (this.latInput.value.trim() == '' || this.lngInput.value.trim() == '') {
+      this.setState({ usersLocation: {
+        [this.latInput.name]: null,
+        [this.lngInput.name]: null
+      }
+      });
+    }
+
     this.setState({ show: true });
   };
 
