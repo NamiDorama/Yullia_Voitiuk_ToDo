@@ -1,12 +1,10 @@
+import ProptTypes from 'prop-types';
 import './navigation.scss';
 
-export const Navigation = ({ list }) => {
-  const items = (list || []);
-
-  return (
+export const Navigation = ({ list }) => { return (
     <nav className="main-nav">
       <ul>
-        {items.map((item) => {
+        {list.map((item) => {
           const href = `/${item.toLowerCase()}`;
           return <li key={item}><a href={href} >{ item }</a></li>;
         })
@@ -14,4 +12,11 @@ export const Navigation = ({ list }) => {
       </ul>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  list: ProptTypes.array
+};
+Navigation.defaultProps = {
+  lest: []
 };

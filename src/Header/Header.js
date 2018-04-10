@@ -6,7 +6,7 @@ const navList = ['Home', 'Products', 'Contacts'];
 
 export const Header = () => (
   <div id="header">
-    <img src="./img/jake.gif" alt="Cute cat"/>
+    <img src="./img/jake.gif" alt="Cute cat" />
     <Heading />
     <Navigation list={navList} />
   </div>

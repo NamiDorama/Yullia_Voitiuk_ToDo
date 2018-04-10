@@ -25,7 +25,6 @@ export class TaskList extends Component {
 
     if (target.value.trim() === '') {
       this.setState({ todos: [...this.originTasks] });
-      return;
     }
   };
 
