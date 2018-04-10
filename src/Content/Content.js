@@ -3,7 +3,7 @@ import { GetLocation } from '../GetLocation';
 import { Timer } from '../Timer';
 import { Edit } from '../Edit';
 import { TaskList } from '../TaskList';
-import { Tabs } from '../Tabs';
+import { Tabs, Tab } from '../Tabs';
 import './content.scss';
 
 const tabs = [
@@ -27,6 +27,23 @@ export const Content = () => (
     <Timer />
     <Edit callbackFunc={(text) => console.log(text)} />
     <TaskList />
-    <Tabs tabs={tabs} />
+    <Tabs>
+
+      <Tab title="Tab 1">
+        <h1>Title</h1>
+        <article>First text here</article>
+      </Tab>
+
+      <Tab title="Tab 2">
+        <h1>Title</h1>
+        <article>Some second text here</article>
+      </Tab>
+
+      <Tab title="Tab 3">
+        <h1>Title</h1>
+        <article>Some third text here</article>
+      </Tab>
+
+    </Tabs>
   </div>
 );

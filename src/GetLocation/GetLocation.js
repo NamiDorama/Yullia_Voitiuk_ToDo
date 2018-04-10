@@ -54,7 +54,7 @@ export class GetLocation extends Component {
   render() {
     const MyMapComponent = withScriptjs(withGoogleMap(props => (
       <GoogleMap
-        defaultZoom={15}
+        defaultZoom={17}
         defaultCenter={{ lat: props.lat, lng: props.lng }}
       >
         <Marker position={{ lat: props.lat, lng: props.lng }} />
