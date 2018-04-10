@@ -1,3 +1,4 @@
+import ProptTypes from 'prop-types';
 import './edit.scss';
 
 export class Edit extends Component {
@@ -13,7 +14,7 @@ export class Edit extends Component {
       const inputText = target.value;
 
       this.setState({ inputText });
-      if (this.props.callbackFunc) this.props.callbackFunc(inputText);
+      this.props.callbackFunc(inputText);
     }
   };
 
@@ -36,3 +37,10 @@ export class Edit extends Component {
     );
   }
 }
+
+Edit.propTypes = {
+  callbackFunc: ProptTypes.func
+};
+Edit.defaultProps = {
+  callbackFunc: _ => _
+};

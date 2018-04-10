@@ -1,3 +1,4 @@
+import ProptTypes from 'prop-types';
 import { TabNav } from './TabNav';
 import {TabContent} from './TabContent';
 
@@ -30,3 +31,7 @@ export class Tabs extends Component {
     );
   }
 }
+
+Tabs.propTypes = {
+  tabs: ProptTypes.array.isRequired
+};

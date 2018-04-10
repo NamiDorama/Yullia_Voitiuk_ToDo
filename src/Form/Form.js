@@ -40,7 +40,7 @@ export class Form extends Component {
 
   validate = (index) => {
     const field = this.fields[index];
-    let stateField = this.state[field.label];
+    const stateField = this.state[field.label];
 
     if (field.reg.test(stateField.value)) {
       stateField.error = '';
@@ -59,8 +59,8 @@ export class Form extends Component {
     return this.fields
       .filter(({ label }) => !excluded.includes(label) && !disabled.includes(label))
       .some(({ label }) => {
-      const { value, error } = this.state[label];
-      return !value || error;
+        const { value, error } = this.state[label];
+        return !value || error;
     });
   }
 
@@ -71,7 +71,7 @@ export class Form extends Component {
     event.preventDefault();
 
     if (state['password'].value !== state['repeat password'].value) {
-      error = 'Passwords should be the same'
+      error = 'Passwords should be the same';
     }
 
     this.setState({ error });

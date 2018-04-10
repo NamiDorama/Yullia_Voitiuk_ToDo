@@ -1,3 +1,4 @@
+import ProptTypes from 'prop-types';
 import { User } from '../User';
 import './usersList.scss';
 
@@ -40,3 +41,10 @@ export class UsersList extends Component {
     );
   }
 }
+
+UsersList.propTypes = {
+  users: ProptTypes.array
+};
+UsersList.defaultProps = {
+  users: []
+};

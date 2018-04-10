@@ -1,3 +1,4 @@
+import ProptTypes from 'prop-types';
 import './numberList.scss';
 
 export const NumberList = (props) => {
@@ -30,4 +31,17 @@ export const NumberList = (props) => {
 
   const items = num.map(item => <li key={item}>{item}</li>);
   return <ul>{items}</ul>;
+};
+
+NumberList.propTypes = {
+  from: ProptTypes.number,
+  to: ProptTypes.number,
+  odd: ProptTypes.bool,
+  even: ProptTypes.bool
+};
+NumberList.defaultProps = {
+  from: 0,
+  to: 10,
+  odd: false,
+  even: false
 };

@@ -1,3 +1,5 @@
+import ProptTypes from 'prop-types';
+
 export const TabNav = ({ list, select }) => {
   const onClick = (e, id) => {
     select(id);
@@ -19,4 +21,9 @@ export const TabNav = ({ list, select }) => {
       </ul>
     </nav>
   );
+};
+
+TabNav.propType = {
+  list: ProptTypes.array.isRequired,
+  select: ProptTypes.func.isRequired
 };
