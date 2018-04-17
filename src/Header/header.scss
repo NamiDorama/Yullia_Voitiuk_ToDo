@@ -2,11 +2,14 @@
 
 #header {
   display: $normal-display;
+  justify-content: space-around;
   padding: $normal-margin;
   border-bottom: 2px solid darken($normal-bgc, 50%);
 
   img {
     margin-right: $normal-margin;
+    width: 55px;
+    height: 53px;
   }
 
   h1 {
