@@ -1,7 +1,14 @@
 @import '../variables.scss';
 
 #main {
-  display: $normal-display;
-  justify-content: space-between;
-  margin: $normal-margin;
+  display: block;
+  margin: $normal-margin auto;
+  max-width: 1024px;
+  border: 1px solid darkgreen;
+
+  button {
+    min-width: 50px;
+    padding: 10px;
+
+  }
 }

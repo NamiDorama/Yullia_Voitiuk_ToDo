@@ -1,8 +1,4 @@
-import { Greeting } from '../Greeting';
-import { NumberList } from '../NumberList';
-import { UsersList } from '../UsersList';
-import { Aside } from '../Aside';
-import { Content } from '../Content';
+import { TaskListTab } from '../TaskListTab';
 import './main.scss';
 
 export class Main extends Component {
@@ -23,16 +19,9 @@ export class Main extends Component {
   render() {
     return (
       <React.Fragment>
-        <Greeting name="Yuliia" />
-        <NumberList
-          from={1}
-          to={3}
-          odd
-        />
-        <UsersList users={this.state.users} />
         <main id="main">
-          <Aside />
-          <Content />
+          <TaskListTab />
+          <button onClick={() => this.props.history.push('/tasks')}>Go to task list</button>
         </main>
       </React.Fragment>
     );

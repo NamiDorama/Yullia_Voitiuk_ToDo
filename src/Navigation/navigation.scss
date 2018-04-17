@@ -11,12 +11,6 @@ $list-color: darken($normal-bgc, 5%);
     list-style: none;
     margin: 0;
 
-    @for $i from 1 through 4 {
-      li:nth-child(#{$i}) {
-        background-color: darken($list-color, 5 * $i);
-      }
-    }
-
     li {
       padding: 20px;
       text-transform: uppercase;
@@ -25,6 +19,17 @@ $list-color: darken($normal-bgc, 5%);
       &:hover {
         cursor: pointer;
         color: lighten($normal-color, 15%);
+      }
+
+      a {
+        text-decoration: none;
+        color: #147a22;
+        font-weight: 600;
+
+        &.active {
+          color: #d60a00;
+          text-decoration: underline;
+        }
       }
     }
   }
