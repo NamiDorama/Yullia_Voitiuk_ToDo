@@ -19,10 +19,13 @@ export class App extends Component {
           login={login}
           logout={this.setLoginState}
         />
-        <Pages
-          login={login}
-          setLoginState={this.setLoginState}
-        />
+        <div className="wrapper">
+          <Pages
+            login={login}
+            setLoginState={this.setLoginState}
+          />
+        </div>
+
       </React.Fragment>
     );
   }
