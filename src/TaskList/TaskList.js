@@ -1,12 +1,12 @@
 import './taskList.scss';
+import { Link } from 'react-router-dom';
 import { Redirect  } from 'react-router-dom';
 
 export class TaskList extends Component {
   originTasks = [];
   icons = ['delete', 'in-progress', 'completed'];
   state = {
-    todos: [],
-    redirect: false
+    todos: []
   };
 
   componentDidMount() {
@@ -35,11 +35,6 @@ export class TaskList extends Component {
     console.log(id);
   };
 
-  openTask = (task) => {
-    console.log(task);
-    this.setState({ redirect : true })
-  };
-
   render() {
     const { todos, redirect } = this.state;
     const { icons } = this;
@@ -54,15 +49,14 @@ export class TaskList extends Component {
         />
         {
           todos &&
-          <ul>
+          <ol>
             {
               todos.map(task => (
                 <li
                   key={task.id}
                   className={task.completed ? 'completed' : 'not-completed'}
-                  onClick={this.openTask}
                 >
-                  {task.id}. {task.title}
+                  <Link to={`/tasks/${task.id}`}>{task.title}</Link>
                   {
                     icons.map(icon => (
                       <span
@@ -75,9 +69,9 @@ export class TaskList extends Component {
                   }
                 </li>))
             }
-          </ul>
+          </ol>
         }
-        {redirect && <Redirect to="/task" />}
+        <button>Add new task</button>
       </div>
     );
   }

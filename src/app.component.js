@@ -3,7 +3,7 @@ import { Pages } from './Pages';
 
 export class App extends Component {
   state = {
-    login: false,
+    login: true,
     user: ''
   };
 

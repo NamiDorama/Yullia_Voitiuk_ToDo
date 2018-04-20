@@ -1,5 +1,6 @@
-import { TaskListTab } from '../TaskListTab';
+
 import './main.scss';
+import {Greeting} from '../Greeting';
 
 export class Main extends Component {
   constructor() {
@@ -20,7 +21,7 @@ export class Main extends Component {
     return (
       <React.Fragment>
         <main id="main">
-          <TaskListTab />
+          <Greeting />
         </main>
       </React.Fragment>
     );

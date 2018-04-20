@@ -1,4 +1,5 @@
 import { Tabs, Tab } from '../Tabs';
+import { Link } from 'react-router-dom';
 
 export const TaskListTab = () => {
   const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
@@ -98,7 +99,20 @@ export const TaskListTab = () => {
           >
             <ol>
               {
-                tasks.map(task => <li key={task.id}>{task.title}</li>)
+                tasks.map(task => (
+                  <li key={task.id}>
+                    <Link
+                      to={{
+                        pathname: `/tasks/${task.id}`,
+                        state: {
+                          task
+                        }
+                      }}
+                    >
+                      {task.title}
+                    </Link>
+                  </li>
+                ) )
               }
             </ol>
             <button>Add new</button>
