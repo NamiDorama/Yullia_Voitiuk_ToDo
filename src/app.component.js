@@ -12,17 +12,21 @@ export class App extends Component {
   };
 
   render() {
-    const { login } = this.state;
+    const { login, user } = this.state;
     return (
       <React.Fragment>
         <Header
+          user={user}
           login={login}
           logout={this.setLoginState}
         />
-        <Pages
-          login={login}
-          setLoginState={this.setLoginState}
-        />
+        <div className="wrapper">
+          <Pages
+            login={login}
+            setLoginState={this.setLoginState}
+            user={user}
+          />
+        </div>
       </React.Fragment>
     );
   }

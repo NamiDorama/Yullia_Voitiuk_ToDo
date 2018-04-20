@@ -21,7 +21,6 @@ export class Main extends Component {
       <React.Fragment>
         <main id="main">
           <TaskListTab />
-          <button onClick={() => this.props.history.push('/tasks')}>Go to task list</button>
         </main>
       </React.Fragment>
     );

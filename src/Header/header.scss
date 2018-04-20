@@ -3,13 +3,15 @@
 #header {
   display: $normal-display;
   justify-content: space-around;
+  align-items: center;
   padding: $normal-margin;
-  border-bottom: 2px solid darken($normal-bgc, 50%);
+  border-bottom: 2px solid #c74c23;
+  max-width: 85%;
+  margin: 0 auto;
 
   img {
     margin-right: $normal-margin;
-    width: 55px;
-    height: 53px;
+    width: 80px;
   }
 
   h1 {

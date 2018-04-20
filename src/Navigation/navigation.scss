@@ -16,19 +16,17 @@ $list-color: darken($normal-bgc, 5%);
       text-transform: uppercase;
       font-size: $normal-fz - 2;
 
-      &:hover {
-        cursor: pointer;
-        color: lighten($normal-color, 15%);
-      }
-
       a {
         text-decoration: none;
-        color: #147a22;
+        color: #e43c28;
         font-weight: 600;
+        display: inline-block;
 
+        &:hover,
         &.active {
-          color: #d60a00;
+          //color: #ffc7b4;
           text-decoration: underline;
+          text-shadow: 0 0 3px #ffffff;
         }
       }
     }

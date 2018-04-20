@@ -16,6 +16,8 @@
 
     li {
       margin: 5px 0;
+      color: #460e10;
+      cursor: pointer;
 
       &.completed {
         text-decoration: line-through;
@@ -34,7 +36,7 @@
           width: 18px;
         }
 
-        &.completed {
+        &.completed{
           background: url('../img/completed.png') no-repeat center;
           height: 25px;
           width: 18px;

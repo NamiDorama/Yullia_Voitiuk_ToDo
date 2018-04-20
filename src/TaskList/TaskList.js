@@ -1,10 +1,12 @@
 import './taskList.scss';
+import { Redirect  } from 'react-router-dom';
 
 export class TaskList extends Component {
   originTasks = [];
   icons = ['delete', 'in-progress', 'completed'];
   state = {
-    todos: []
+    todos: [],
+    redirect: false
   };
 
   componentDidMount() {
@@ -33,8 +35,13 @@ export class TaskList extends Component {
     console.log(id);
   };
 
+  openTask = (task) => {
+    console.log(task);
+    this.setState({ redirect : true })
+  };
+
   render() {
-    const { todos } = this.state;
+    const { todos, redirect } = this.state;
     const { icons } = this;
 
     return (
@@ -53,6 +60,7 @@ export class TaskList extends Component {
                 <li
                   key={task.id}
                   className={task.completed ? 'completed' : 'not-completed'}
+                  onClick={this.openTask}
                 >
                   {task.id}. {task.title}
                   {
@@ -69,6 +77,7 @@ export class TaskList extends Component {
             }
           </ul>
         }
+        {redirect && <Redirect to="/task" />}
       </div>
     );
   }

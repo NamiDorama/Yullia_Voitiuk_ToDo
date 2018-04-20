@@ -1,4 +1,25 @@
-.active a {
-  font-weight: 600;
-  color: #db0000;
+.nav-tab {
+  
+  ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      padding: 5px 15px;
+      border: 1px solid #c74c23;
+
+      &.active,
+      &:hover {
+        background-color: #ffd6cf;
+      }
+
+      &.active a {
+        font-weight: 600;
+        color: #db0000;
+      }
+    }
+  }
 }
+
