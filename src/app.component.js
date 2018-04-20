@@ -24,6 +24,7 @@ export class App extends Component {
           <Pages
             login={login}
             setLoginState={this.setLoginState}
+            user={user}
           />
         </div>
       </React.Fragment>
