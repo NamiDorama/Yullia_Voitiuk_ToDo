@@ -1,31 +1,42 @@
-import { Header } from './Header';
+import { Header } from './parts';
 import { Pages } from './Pages';
+import { Preloader } from './components/Preloader/';
+import { checkUser } from './services';
 
 export class App extends Component {
   state = {
-    login: true,
-    user: ''
+    user: undefined
   };
 
-  setLoginState = (login, user) => {
-    this.setState({ login, user });
+  setLoginState = (user) => {
+    this.setState({ user });
   };
+
+  componentDidMount() {
+    checkUser()
+      .then((data) => {
+        this.setLoginState(data)
+      })
+      .catch(err => console.log('Can\'t login', err));
+  }
 
   render() {
-    const { login, user } = this.state;
+    const { user } = this.state;
     return (
       <React.Fragment>
         <Header
           user={user}
-          login={login}
           logout={this.setLoginState}
         />
         <div className="wrapper">
-          <Pages
-            login={login}
-            setLoginState={this.setLoginState}
-            user={user}
-          />
+          {
+            user !== undefined ?
+              <Pages
+                setLoginState={this.setLoginState}
+                login={user}
+              /> :
+              <Preloader />
+          }
         </div>
       </React.Fragment>
     );

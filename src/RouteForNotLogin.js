@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from './Login';
+import { Login } from './pages/Login';
 
 export const RouteForNotLogin = ({ setLoginState }) => {
   return (

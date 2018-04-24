@@ -4,7 +4,10 @@ import { RouteForNotLogin } from './RouteForNotLogin';
 export class Pages extends Component {
   render() {
     return (
-        this.props.login ? <RouteForLogin user={this.props.user} /> : <RouteForNotLogin setLoginState={this.props.setLoginState} />
+        this.props.login ?
+          <RouteForLogin user={this.props.login} />
+          :
+          <RouteForNotLogin setLoginState={this.props.setLoginState} />
     );
   }
 }

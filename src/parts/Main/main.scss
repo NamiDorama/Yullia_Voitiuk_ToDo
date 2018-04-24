@@ -1,0 +1,12 @@
+@import '../../variables';
+
+#main {
+  display: block;
+  margin: $normal-margin auto;
+
+  button {
+    min-width: 50px;
+    padding: 10px;
+
+  }
+}

@@ -1,0 +1,11 @@
+@import '../../variables';
+
+aside {
+  width: 25%;
+  padding: 0 20px 20px;
+  border: 3px double darken($normal-bgc, 50%);
+
+  h3 {
+    border-bottom: 1px solid darken($normal-bgc, 50%);
+  }
+}

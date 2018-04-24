@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+#header {
+  display: $normal-display;
+  justify-content: space-around;
+  align-items: center;
+  padding: $normal-margin;
+  border-bottom: 2px solid #c74c23;
+  max-width: 85%;
+  margin: 0 auto;
+
+  img {
+    margin-right: $normal-margin;
+    width: 80px;
+  }
+
+  h1 {
+    margin: 0;
+    width: 30%;
+  }
+}
