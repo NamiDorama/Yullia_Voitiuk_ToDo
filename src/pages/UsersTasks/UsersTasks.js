@@ -1,4 +1,5 @@
 import './usersTasks.scss';
+import { Link } from 'react-router-dom';
 
 export class UsersTasks extends Component {
   state = {
@@ -12,7 +13,6 @@ export class UsersTasks extends Component {
   render() {
     return (
       <div className="users-task-wrapper">
-        <h3>Hello{` , ${this.state.userName}` || ' , user'}!</h3>
         <div className="tasks-list">
           <ul>
             <li>You have: <span>{this.state.allTasks}</span> tasks</li>
@@ -22,7 +22,9 @@ export class UsersTasks extends Component {
           </ul>
         </div>
         <p>
-          <a href="/task-list">Go to the task list</a>
+          <Link to="/tasks">
+            Go to the task list
+          </Link>
         </p>
       </div>
     );

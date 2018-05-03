@@ -4,8 +4,8 @@ import { GetLocation } from './components/GetLocation';
 import { TaskListTab } from './pages/TaskListTab';
 import {TaskList} from './pages';
 import { NotFound } from './components/NotFound';
-import { Greeting } from './components/Greeting';
-import { UsersTask } from './pages';
+import {UsersTasks} from './pages/UsersTasks';
+import { Gallery } from './pages/Gallery';
 import { Task } from './pages/Task';
 
 export const RouteForLogin = () => (
@@ -14,8 +14,9 @@ export const RouteForLogin = () => (
     <Route path="/home" exact component={Main} />
     <Route path="/tasks" exact component={TaskListTab} />
     <Route path="/tasks/:task" component={Task} />
+    <Route path="/gallery" component={Gallery} />
     <Route path="/contacts" component={GetLocation} />
-    <Route path="/user_page" render={(props) => <Greeting name={props.user} />} />
+    <Route path="/user_page" component={UsersTasks} />
     <Redirect from="/login" to="/home" />
     <Route render={({ location }) => <NotFound location={location} />} />
   </Switch>

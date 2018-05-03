@@ -9,12 +9,13 @@ export class Tabs extends Component {
     super(props);
     this.state = {
       content: '',
-      id: 0
+      id: 0,
+      selectedIndex: new Date().getDay()
     };
   }
 
-  clickTab = (id) => {
-    this.setState({ id });
+  clickTab = (selectedIndex) => {
+    this.setState({ selectedIndex });
   };
 
   render() {
@@ -27,10 +28,10 @@ export class Tabs extends Component {
         <TabNav
           list={links}
           select={this.clickTab}
-          activeIndex={this.state.id}
+          activeIndex={this.state.selectedIndex || this.state.id}
         />
         <div>
-          {contents[this.state.id]}
+          {contents[this.state.selectedIndex || this.state.id]}
         </div>
       </section>
     );

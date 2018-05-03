@@ -1,6 +1,5 @@
-
 import './main.scss';
-import {Greeting} from '../../components/Greeting';
+import {UsersTasks} from '../../pages/UsersTasks';
 
 export class Main extends Component {
   constructor() {
@@ -21,7 +20,7 @@ export class Main extends Component {
     return (
       <React.Fragment>
         <main id="main">
-          <Greeting />
+          <UsersTasks />
         </main>
       </React.Fragment>
     );
