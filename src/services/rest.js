@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:8081/';
 
-export const request = (url, method = 'GET', body, options) =>{
+export const request = (url, method = 'GET', body, options) => {
   const fetchOpts = {
     method: method,
     credentials: 'include',
@@ -10,7 +10,14 @@ export const request = (url, method = 'GET', body, options) =>{
   Object.assign(fetchOpts, options);
 
   return fetch(`${BASE_URL}${url}`, fetchOpts)
-      .then(data => console.log(data) || data.json());
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        return Promise.reject(data.error);
+      }
+
+      return Promise.resolve(data);
+    })
 };
 
 export const rest = {
@@ -20,7 +27,7 @@ export const rest = {
 
   post(url, body) {
     const options = {
-      headers:{
+      headers: {
         'Content-type': 'application/json; charset=utf-8'
       }
     };
@@ -38,7 +45,5 @@ export const rest = {
 
   delete(url) {
     return request(url, 'DELETE');
-  },
-
-
+  }
 };

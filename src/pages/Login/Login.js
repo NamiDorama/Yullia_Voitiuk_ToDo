@@ -3,7 +3,8 @@ import { login } from '../../services';
 
 export class Login extends Component {
   state = {
-    loader: false
+    loader: false,
+    error: null
   };
 
   submit = (event) => {
@@ -16,31 +17,42 @@ export class Login extends Component {
       .then(user => {
         this.props.onLogin(user)
       })
+      .catch(err => this.setState({ error: err, loader: false }))
   };
 
   render() {
+    const { loader, error } = this.state;
+
     return (
-      this.state.loader ?
+      loader ?
         <Preloader /> :
-      <form onSubmit={this.submit}>
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          defaultValue="admin@a.com"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          defaultValue="admin"
-          required
-        />
-        <input
-          type="submit"
-          value="Log in"
-        />
-      </form>
+        <React.Fragment>
+          <form onSubmit={this.submit}>
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              defaultValue="admin@a.com"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              defaultValue="admin"
+              required
+            />
+            <input
+              type="submit"
+              value="Log in"
+            />
+          </form>
+          {
+            error &&
+            <p>{error}</p>
+          }
+        </React.Fragment>
+
+
     )};
 }

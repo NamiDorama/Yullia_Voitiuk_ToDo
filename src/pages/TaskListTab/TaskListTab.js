@@ -13,16 +13,15 @@ export class TaskListTab extends Component {
     getTasksList()
       .then(data => {
         this.setState({ tasksInWeek: data })
-      })
+      });
   };
-
 
   render() {
     const { days, tasksInWeek } = this.state;
 
     return (
       tasksInWeek &&
-      <Tabs>
+      <Tabs selectedIndex={ new Date().getDay() }>
         {
           tasksInWeek.map((tasks, index) =>
             <Tab
@@ -34,12 +33,7 @@ export class TaskListTab extends Component {
                   tasks.map(task => (
                     <li key={task.id}>
                       <Link
-                        to={{
-                          pathname: `/tasks/${task.id}`,
-                          state: {
-                            task
-                          }
-                        }}
+                        to={`/tasks/${task.id}`}
                       >
                         {task.title}
                       </Link>
