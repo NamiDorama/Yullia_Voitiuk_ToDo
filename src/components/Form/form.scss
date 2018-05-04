@@ -1,9 +1,7 @@
 @import '../../variables';
 
 .form-block {
-  border: 1px solid darken($normal-bgc, 60%);
-  padding: $normal-margin;
-  margin-top: $normal-margin;
+  width: 50%;
 
   h3 {
     margin: 0 0 $normal-margin 0;

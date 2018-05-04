@@ -19,9 +19,7 @@ export class Main extends Component {
   render() {
     return (
       <React.Fragment>
-        <main id="main">
-          <UsersTasks />
-        </main>
+        <UsersTasks />
       </React.Fragment>
     );
   }

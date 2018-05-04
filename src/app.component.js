@@ -26,7 +26,7 @@ export class App extends Component {
       <React.Fragment>
         <Header
           user={user}
-          logout={this.setLoginState}
+          setLoginState={this.setLoginState}
         />
         <div className="wrapper">
           {
