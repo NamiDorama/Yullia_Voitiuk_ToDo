@@ -1,5 +1,5 @@
 import './task.scss';
-import { getTask } from '../../services';
+import { getTask, updateTask } from '../../services';
 
 export class Task extends Component {
   constructor(props) {
@@ -12,12 +12,22 @@ export class Task extends Component {
     }
   }
 
-  updateTask = () => {
-    console.log('updating...')
+  componentDidMount() {
+    const { task } = this.props.match.params;
+    getTask(task)
+      .then(data => this.setState({ ...data }))
+  }
+
+  updateUsersTask = (event) => {
+    console.log('updating...');
+    updateTask(this.state)
+      .then(console.log);
+
+    event.preventDefault();
   };
 
   changeInput = ({ target }) => {
-    this.setState({ [target.name]: { value: target.value } });
+    this.setState({ [target.name]: target.value });
   };
 
   render() {
@@ -25,7 +35,7 @@ export class Task extends Component {
     return (
       <form
         className="task"
-        onSubmit={this.updateTask}
+        onSubmit={this.updateUsersTask}
       >
         <p>Day: {this.days[day]}</p>
         <input
@@ -42,7 +52,6 @@ export class Task extends Component {
           name="description"
           value={description}
           onChange={this.changeInput}
-          required
         >
       </textarea>
         <button>Save</button>
