@@ -1,14 +1,28 @@
 import { Navigation } from '../Navigation/index';
+import { logout } from '../../services';
 import './header.scss';
 
 const navList = ['Home', 'Tasks', 'Gallery', 'Contacts'];
 
-export const Header = ({ login, user, logout }) => {
+export const Header = ({ user, setLoginState }) => {
+
+  const logoutUser = () => {
+    logout()
+      .then(user => {
+        setLoginState(null)
+      });
+  };
+
   return (
     <div id="header">
       <a href="/"><img src="./img/tik.png" alt="Task manager" title="Task manager" /></a>
       <Navigation list={navList} user={user} />
-      {login && <button onClick={() => logout(null)}>Logout</button>}
+      {
+        user &&
+        <button onClick={logoutUser}>
+          Logout
+        </button>
+      }
     </div>
   );
 };

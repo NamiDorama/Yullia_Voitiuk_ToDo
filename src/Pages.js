@@ -1,13 +1,8 @@
 import { RouteForLogin } from './RouteForLogin';
 import { RouteForNotLogin } from './RouteForNotLogin';
 
-export class Pages extends Component {
-  render() {
-    return (
-        this.props.login ?
-          <RouteForLogin user={this.props.login} />
-          :
-          <RouteForNotLogin setLoginState={this.props.setLoginState} />
-    );
-  }
-}
+export const Pages = ({ login, setLoginState }) => (
+    login ?
+      <RouteForLogin user={login} /> :
+      <RouteForNotLogin setLoginState={setLoginState} />
+);

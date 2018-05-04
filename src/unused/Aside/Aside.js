@@ -1,4 +1,4 @@
-import { UsersTasks } from '../UsersTasks';
+import { UsersTasks } from '../../pages/UsersTasks';
 import { Form } from '../../components/Form/index';
 import { TaskListTab } from '../../pages/TaskListTab/index';
 import './aside.scss';

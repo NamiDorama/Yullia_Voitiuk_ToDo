@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './navigation.scss';
 
 export const Navigation = ({ list, user }) => {
+  console.log('navigation', user);
   return (
     <nav className="main-nav">
       <ul>
@@ -22,7 +23,7 @@ export const Navigation = ({ list, user }) => {
         })
        }
       {
-        user &&
+        user ?
           <li>
             <NavLink
               to="/user_page"
@@ -31,7 +32,16 @@ export const Navigation = ({ list, user }) => {
             >
               {user.firstName}
             </NavLink>
-          </li>
+          </li> :
+          <button>
+            <NavLink
+              to="/user_create"
+              exact
+              activeClassName="active"
+            >
+              Create User
+            </NavLink>
+          </button>
       }
       </ul>
     </nav>

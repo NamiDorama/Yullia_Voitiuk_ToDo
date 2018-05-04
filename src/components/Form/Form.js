@@ -1,4 +1,5 @@
 import ProptTypes from 'prop-types';
+import { createNewUser, login } from '../../services/users';
 import './form.scss';
 
 export class Form extends Component {
@@ -10,11 +11,11 @@ export class Form extends Component {
         reg: /^\w+@\w+\.[a-z]{2,}$/
       },
       {
-        label: 'first name',
+        label: 'firstName',
         reg: /^[^ ]{3,20}$/
       },
       {
-        label: 'last name',
+        label: 'lastName',
         reg: /^[^ ]{3,20}$/
       },
       {
@@ -78,17 +79,24 @@ export class Form extends Component {
 
     if (error) return;
 
-    console.log(this.getFormValue());
+    this.getFormValue();
   };
 
   getFormValue() {
     const form = {};
 
     this.fields.forEach(field => {
-      form[field.label] = this.state[field.label].value;
+      if (field.label !== 'repeat password') {
+        form[field.label] = this.state[field.label].value;
+      }
     });
 
-    return form;
+    createNewUser(form);
+    login({ email: form.email, password: form.password })
+      .then(user => {
+        console.log(user);
+        this.props.onLogin(user)
+      });
   }
 
   render() {

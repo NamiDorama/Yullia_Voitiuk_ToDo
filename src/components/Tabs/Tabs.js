@@ -9,15 +9,22 @@ export class Tabs extends Component {
     super(props);
     this.state = {
       content: '',
-      id: 0
+      selectedIndex: this.props.selectedIndex || 0
     };
   }
 
-  clickTab = (id) => {
-    this.setState({ id });
+  clickTab = (selectedIndex) => {
+    this.setState({ selectedIndex });
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.selectedIndex !== prevState.selectedIndex) {
+      return { selectedIndex: nextProps.selectedIndex };
+    }
+  }
+
   render() {
+    const { selectedIndex } = this.state;
     const tabs = this.props.children.filter(child => child.type === Tab);
     const links = tabs.map(tab => tab.props.title || 'Tab');
     const contents = tabs.map(tab => tab.props.children);
@@ -27,10 +34,10 @@ export class Tabs extends Component {
         <TabNav
           list={links}
           select={this.clickTab}
-          activeIndex={this.state.id}
+          activeIndex={selectedIndex}
         />
         <div>
-          {contents[this.state.id]}
+          {contents[selectedIndex]}
         </div>
       </section>
     );

@@ -17,7 +17,7 @@ export class App extends Component {
       .then((data) => {
         this.setLoginState(data)
       })
-      .catch(err => console.log('Can\'t login', err));
+      .catch(err => this.setLoginState(null));
   }
 
   render() {
@@ -26,7 +26,7 @@ export class App extends Component {
       <React.Fragment>
         <Header
           user={user}
-          logout={this.setLoginState}
+          setLoginState={this.setLoginState}
         />
         <div className="wrapper">
           {
