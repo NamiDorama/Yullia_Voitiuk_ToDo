@@ -1,10 +1,15 @@
 import './task.scss';
+import { getTask } from '../../services';
 
 export class Task extends Component {
   constructor(props) {
     super(props);
     this.days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-    this.state = Object.assign({}, props.location.state.task)
+    this.state = {
+      title: '',
+      description: '',
+      id: null
+    }
   }
 
   updateTask = () => {
