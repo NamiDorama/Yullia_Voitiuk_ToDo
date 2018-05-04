@@ -1,5 +1,5 @@
 import './main.scss';
-import {UsersTasks} from '../../pages/UsersTasks';
+import { UsersTasks } from '../../pages/UsersTasks';
 
 export class Main extends Component {
   constructor() {

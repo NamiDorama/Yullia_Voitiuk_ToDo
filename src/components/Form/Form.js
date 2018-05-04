@@ -1,47 +1,48 @@
-import ProptTypes from 'prop-types';
-import { createNewUser, login } from '../../services/users';
 import './form.scss';
 
 export class Form extends Component {
+  static get fields() {
+    return [
+      { id: 'email', label: 'email', reg: /^\w+@\w+\.[a-z]{2,}$/ },
+      { id: 'firstName', label: 'first name', reg: /^[^ ]{3,20}$/ },
+      { id: 'lastName', label: 'last name', reg: /^[^ ]{3,20}$/ },
+      { id: 'password', label: 'password', reg: /^[^ ]{6,20}$/, secure: true },
+      { id: 'repeatPassword', label: 'repeat password', reg: /^[^ ]{6,20}$/, secure: true }
+    ];
+  }
+
   constructor(props) {
     super(props);
-    this.fields = [
-      {
-        label: 'email',
-        reg: /^\w+@\w+\.[a-z]{2,}$/
-      },
-      {
-        label: 'firstName',
-        reg: /^[^ ]{3,20}$/
-      },
-      {
-        label: 'lastName',
-        reg: /^[^ ]{3,20}$/
-      },
-      {
-        label: 'password',
-        reg: /^[^ ]{6,20}$/,
-        secure: true
-      },
-      {
-        label: 'repeat password',
-        reg: /^[^ ]{6,20}$/,
-        secure: true
-      }
-    ];
+
+    this.fields = Form.fields;
+
     this.state = {
       error: ''
     };
-    this.fields.forEach(field => (this.state[field.label] = { value: '' }));
+    this.fields.forEach(field => (this.state[field.id] = { value: '' }));
   }
 
-  changeInput = ({ target }) => {
-    this.setState({ [target.name]: { value: target.value } });
+  static getDerivedStateFromProps(nextProps) {
+    if (!nextProps.data) {
+      return null;
+    }
+
+    const state = {};
+
+    Form.fields.forEach(({ id }) => (state[id] = { value: nextProps.data[id] }));
+
+    return state;
+  }
+
+  setValue = ({ target }) => {
+    this.setState({
+      [target.name]: { value: target.value }
+    });
   };
 
   validate = (index) => {
     const field = this.fields[index];
-    const stateField = this.state[field.label];
+    const stateField = this.state[field.id];
 
     if (field.reg.test(stateField.value)) {
       stateField.error = '';
@@ -50,19 +51,16 @@ export class Form extends Component {
     }
 
     this.setState({
-      [field.label]: stateField
+      [field.id]: stateField
     });
   };
 
   getDisabledState() {
-    const { excluded, disabled } = this.props;
-
-    return this.fields
-      .filter(({ label }) => !excluded.includes(label) && !disabled.includes(label))
-      .some(({ label }) => {
-        const { value, error } = this.state[label];
+    return this.getActualFields()
+      .some(({ id }) => {
+        const { value, error } = this.state[id];
         return !value || error;
-    });
+      });
   }
 
   save = (event) => {
@@ -71,7 +69,7 @@ export class Form extends Component {
 
     event.preventDefault();
 
-    if (state['password'].value !== state['repeat password'].value) {
+    if (state.password.value !== state.repeatPassword.value) {
       error = 'Passwords should be the same';
     }
 
@@ -79,24 +77,25 @@ export class Form extends Component {
 
     if (error) return;
 
-    this.getFormValue();
+    this.props.onSubmit(this.getFormValue());
   };
 
   getFormValue() {
     const form = {};
 
-    this.fields.forEach(field => {
-      if (field.label !== 'repeat password') {
-        form[field.label] = this.state[field.label].value;
-      }
-    });
+    this.fields
+      .filter(field => !this.props.excluded.includes(field.id))
+      .filter(field => !field.value && !this.props.skipped.includes(field.id))
+      .forEach(field => form[field.id] = this.state[field.id].value);
 
-    createNewUser(form);
-    login({ email: form.email, password: form.password })
-      .then(user => {
-        console.log(user);
-        this.props.onLogin(user)
-      });
+    return form;
+  }
+
+  getActualFields() {
+    return this.fields
+      .filter(field => !this.props.excluded.includes(field.id))
+      .filter(field => !this.props.skipped.includes(field.id))
+      .filter(field => !this.props.disabled.includes(field.id));
   }
 
   render() {
@@ -104,54 +103,50 @@ export class Form extends Component {
     const { excluded, disabled } = this.props;
 
     return (
-      <div className="form-block">
-        <h3>This is Form</h3>
-        <form className="form">
-          {
-            fields
-              .filter(({ label }) => !excluded.includes(label))
-              .map(({ label, secure }, index) => {
-              const stateField = state[label];
+      <form
+        className="form"
+        onSubmit={this.save}
+      >
+        <ul>{fields
+          .filter(({ id }) => !excluded.includes(id))
+          .map(({ label, secure, id }, index) => {
+            const stateField = state[id];
 
-              return (
-                <div key={label}>
-                  <input
-                    type={secure ? 'password' : 'text'}
-                    name={label}
-                    className={stateField.error ? 'error' : 'correct'}
-                    placeholder={label.toUpperCase()}
-                    value={stateField.value}
-                    onChange={this.changeInput}
-                    onBlur={() => this.validate(index)}
-                    disabled={disabled.includes(label)}
-                  />
-                  {stateField.error && <span>{stateField.error}</span>}
-                </div>
-              );
-            })
-          }
-          {
-            state.error && <span>{state.error}</span>
-          }
-          <button
-            type="submit"
-            disabled={this.getDisabledState()}
-            onClick={this.save}
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+            return (
+              <li key={label}>
+                <input
+                  type={secure ? 'password' : 'text'}
+                  name={id}
+                  className={stateField.error ? 'error' : 'correct'}
+                  placeholder={label.toUpperCase()}
+                  value={stateField.value}
+                  onChange={this.setValue}
+                  onBlur={() => this.validate(index)}
+                  disabled={disabled.includes(id)}
+                />
+                {stateField.error && <span className="error-text">{stateField.error}</span>}
+              </li>
+            );
+          })}
+        </ul>
+
+        {state.error && <span className="error-text">{state.error}</span>}
+
+        <br/>
+
+        <input
+          type="submit"
+          value="Save"
+          disabled={this.getDisabledState()}
+        />
+      </form>
     );
   }
 }
 
-Form.propTypes = {
-  excluded: ProptTypes.array,
-  disabled: ProptTypes.array
-};
-
 Form.defaultProps = {
   excluded: [],
-  disabled: []
+  disabled: [],
+  skipped: [],
+  onSubmit: _ => _
 };

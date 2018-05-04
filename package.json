@@ -19,10 +19,13 @@
   "license": "ISC",
   "dependencies": {
     "file-loader": "^1.1.11",
-    "react": "^16.3.0",
+    "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-google-maps": "^9.4.5",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-toastr": "^3.0.0",
+    "redux": "^4.0.0",
     "url-loader": "^1.0.1"
   },
   "devDependencies": {
