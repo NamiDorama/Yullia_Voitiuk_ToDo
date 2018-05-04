@@ -1,12 +1,11 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Main } from './parts';
 import { GetLocation } from './components/GetLocation';
-import { TaskListTab } from './pages/TaskListTab';
-import {TaskList} from './pages';
+import { TaskListTab } from './pages/';
 import { NotFound } from './components/NotFound';
-import {UsersTasks} from './pages/UsersTasks';
-import { Gallery } from './pages/Gallery';
-import { Task } from './pages/Task';
+import {UsersTasks} from './pages/';
+import { Gallery } from './pages/';
+import { Task } from './pages/';
 
 export const RouteForLogin = () => (
   <Switch>

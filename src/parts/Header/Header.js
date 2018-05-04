@@ -10,7 +10,7 @@ export const Header = ({ user, setLoginState }) => {
     logout()
       .then(user => {
         setLoginState(null)
-      })
+      });
   };
 
   return (
