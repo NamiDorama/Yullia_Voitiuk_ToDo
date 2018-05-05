@@ -1,5 +1,9 @@
 import './task.scss';
-import { getTask, updateTask } from '../../services';
+import {
+  getTask,
+  updateTask,
+  createTask
+} from '../../services';
 
 export class Task extends Component {
   constructor(props) {
@@ -14,16 +18,29 @@ export class Task extends Component {
 
   componentDidMount() {
     const { task } = this.props.match.params;
+
+    if (task === 'new_task') {
+      this.setState({ day: this.getDay() });
+      return;
+    }
+
     getTask(task)
       .then(data => this.setState({ ...data }))
   }
 
+  getDay() {
+    return this.props.location.search.replace(/\D+/, '') || '';
+  }
+
   updateUsersTask = (event) => {
-    console.log('updating...');
-    updateTask(this.state)
-      .then(console.log);
+    const { task } = this.props.match.params;
+
+    let promise = task === 'new_task' ? createTask(this.state) : updateTask(this.state);
 
     event.preventDefault();
+
+    promise
+      .then(() => this.props.history.push('/tasks'));
   };
 
   changeInput = ({ target }) => {
@@ -32,6 +49,7 @@ export class Task extends Component {
 
   render() {
     const { title, description, day } = this.state;
+
     return (
       <form
         className="task"

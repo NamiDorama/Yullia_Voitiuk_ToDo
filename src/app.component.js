@@ -17,10 +17,10 @@ export class AppComponent extends Component {
   };
 
   componentDidMount() {
-    this.container.error(
-      <strong>Error</strong>,
-      <em>Error</em>
-    );
+    // this.container.error(
+    //   <strong>Error</strong>,
+    //   <em>Error</em>
+    // );
 
     checkUser()
       .then((data) => {
