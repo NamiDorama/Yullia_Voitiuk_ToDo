@@ -5,14 +5,13 @@ import {
   updateTask,
   deleteTask
 } from '../../services';
+import { days, icons } from '../../consts';
 
 import './taskListTab.scss';
 
 export class TaskListTab extends Component {
   state = {
-    days: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-    tasksInWeek: null,
-    icons: ['delete', 'in-progress', 'completed']
+    tasksInWeek: null
   };
 
   componentDidMount() {
@@ -26,25 +25,19 @@ export class TaskListTab extends Component {
     this.props.history.push(`tasks/new_task?day=${day}`);
   };
 
-  changeTaskStatus = ({ target }, task, day) => {
-    if (target.className === 'completed') {
+  changeTaskStatus = (key, task, day) => {
+    let tasksInWeek = [...this.state.tasksInWeek];
+
+    if (key === 'completed') {
       task.done = true;
       updateTask(task)
-        .then(task => this.setState({ ...task }));
+        .then(data => this.setState({ tasksInWeek }));
     }
 
-    if (target.className === 'delete') {
+    if (key === 'delete') {
       deleteTask(task.id)
         .then(data => {
-          let tasks = [];
-          let tasksInWeek = [...this.state.tasksInWeek];
-
-          this.state.tasksInWeek[day].map(task => {
-            if (!task.id.includes(data.id)) {
-              tasks.push(task);
-            }
-          });
-
+          let tasks = this.state.tasksInWeek[day].filter(task => task.id !== data.id);
           tasksInWeek[day] = tasks;
           this.setState({ tasksInWeek });
         });
@@ -52,7 +45,7 @@ export class TaskListTab extends Component {
   };
 
   render() {
-    const { days, tasksInWeek, icons } = this.state;
+    const { tasksInWeek } = this.state;
 
     return (
       tasksInWeek &&
@@ -81,7 +74,7 @@ export class TaskListTab extends Component {
                             key={icon}
                             className={icon}
                             title={icon}
-                            onClick={(event) => this.changeTaskStatus(event, task, index)}
+                            onClick={() => this.changeTaskStatus(icon, task, index)}
                           />
                         ))
                       }
