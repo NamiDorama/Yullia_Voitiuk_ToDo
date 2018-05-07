@@ -11,14 +11,12 @@ import './taskListTab.scss';
 
 export class TaskListTab extends Component {
   state = {
-    tasksInWeek: null
+    tasksInWeek: []
   };
 
   componentDidMount() {
     getTasksList()
-      .then(data => {
-        this.setState({ tasksInWeek: data })
-      });
+      .then(tasksInWeek => this.setState({ tasksInWeek }));
   };
 
   createNewTask = (day) => {
@@ -31,7 +29,19 @@ export class TaskListTab extends Component {
     if (key === 'completed') {
       task.done = true;
       updateTask(task)
-        .then(data => this.setState({ tasksInWeek }));
+        .then(() => this.setState({ tasksInWeek }));
+    }
+
+    if (key === 'in-progress') {
+      this.state.tasksInWeek[day].forEach(el => {
+        if (el.done === 'in-progress') {
+          task.done = task.done;
+        }
+        task.done = 'in-progress';
+      });
+      console.log(11111);
+      updateTask(task)
+        .then(() => this.setState({ tasksInWeek }));
     }
 
     if (key === 'delete') {
@@ -48,7 +58,6 @@ export class TaskListTab extends Component {
     const { tasksInWeek } = this.state;
 
     return (
-      tasksInWeek &&
       <Tabs selectedIndex={ new Date().getDay() }>
         {
           tasksInWeek.map((tasks, index) =>
@@ -61,7 +70,10 @@ export class TaskListTab extends Component {
                   tasks.map(task => (
                     <li
                       key={task.id}
-                      className={task.done ? 'completed' : 'not-completed'}
+                      className={
+                        `${
+                          task.done && task.done !== 'in-progress' ? 'completed' : 'not-completed'}
+                          ${task.done === 'in-progress' ? 'in-progress' : ''}`}
                     >
                       <Link
                         to={`/tasks/${task.id}`}

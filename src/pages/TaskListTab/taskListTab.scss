@@ -8,6 +8,7 @@ ol {
     a {
       color: #0b0321;
       cursor: pointer;
+      text-decoration: none;
     }
 
     &.completed a {
@@ -17,6 +18,20 @@ ol {
 
     &.completed span {
       display: none;
+    }
+
+    &.in-progress {
+      text-decoration: underline;
+    }
+
+    &.in-progress span.completed,
+    &.in-progress span.delete {
+      opacity: 0;
+    }
+
+    &.in-progress:hover span.completed,
+    &.in-progress:hover span.delete {
+      opacity: 1;
     }
 
     span {
