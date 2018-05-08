@@ -48,8 +48,13 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
-            plugins: ['syntax-dynamic-import', 'transform-class-properties', 'transform-object-rest-spread']
+            presets: ['env', 'react', 'stage-0'],
+            plugins: [
+              'syntax-dynamic-import',
+              'transform-class-properties',
+              'transform-object-rest-spread',
+              'transform-regenerator'
+            ]
           }
         }
       },

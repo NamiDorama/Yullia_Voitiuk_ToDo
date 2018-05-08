@@ -4,21 +4,18 @@ import { getInfoAboutTasks } from '../../services';
 
 export class UsersTasks extends Component {
   state = {
-    tasksInfo: null
+    tasksInfo: []
   };
 
   componentDidMount() {
     getInfoAboutTasks()
-      .then(data => {
-        this.setState({ tasksInfo: data })
-      })
+      .then(tasksInfo => this.setState({ tasksInfo }));
   }
 
   render() {
     const { tasksInfo } = this.state;
 
     return (
-      tasksInfo &&
       <div className="users-task-wrapper">
         <div className="tasks-list">
           <ul>

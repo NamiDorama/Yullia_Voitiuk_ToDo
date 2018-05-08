@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { Preloader } from './components/Preloader/';
 import { checkUser } from './services';
 import { errObserver } from './services';
-import { setUser } from './store';
+import { setUser, getUser } from './store';
 
 export class AppComponent extends Component {
   setLoginState = (user) => {
@@ -22,11 +22,13 @@ export class AppComponent extends Component {
     //   <em>Error</em>
     // );
 
-    checkUser()
-      .then((data) => {
-        this.setLoginState(data)
-      })
-      .catch(err => this.props.dispatch(setUser(null)));
+    this.props.dispatch(getUser());
+
+    // checkUser()
+    //   .then((data) => {
+    //     this.setLoginState(data)
+    //   })
+    //   .catch(err => this.props.dispatch(setUser(null)));
 
     errObserver.addObserver((err = 'Something goes wrong...') => this.props.user !== false && this.container.error(
       <strong>{err}</strong>
