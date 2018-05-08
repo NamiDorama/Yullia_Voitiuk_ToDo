@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import {
   getTasksList,
   updateTask,
-  deleteTask
+  deleteTask,
+  errObserver
 } from '../../services';
 import { days, icons } from '../../consts';
 
@@ -25,6 +26,7 @@ export class TaskListTab extends Component {
 
   changeTaskStatus = (key, task, day) => {
     let tasksInWeek = [...this.state.tasksInWeek];
+    const todayTasks = this.state.tasksInWeek[day];
 
     if (key === 'completed') {
       task.done = true;
@@ -33,21 +35,19 @@ export class TaskListTab extends Component {
     }
 
     if (key === 'in-progress') {
-      this.state.tasksInWeek[day].forEach(el => {
-        if (el.done === 'in-progress') {
-          task.done = task.done;
-        }
+      if (todayTasks.every((dayTask) => dayTask.done !== 'in-progress')) {
         task.done = 'in-progress';
-      });
-      console.log(11111);
-      updateTask(task)
-        .then(() => this.setState({ tasksInWeek }));
+            updateTask(task)
+              .then(() => this.setState({ tasksInWeek }));
+      } else {
+        errObserver.trigger('Sorry, only one task can be in progress');
+      }
     }
 
     if (key === 'delete') {
       deleteTask(task.id)
         .then(data => {
-          let tasks = this.state.tasksInWeek[day].filter(task => task.id !== data.id);
+          let tasks = todayTasks.filter(task => task.id !== data.id);
           tasksInWeek[day] = tasks;
           this.setState({ tasksInWeek });
         });

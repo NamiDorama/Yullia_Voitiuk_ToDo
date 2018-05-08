@@ -20,8 +20,10 @@ ol {
       display: none;
     }
 
-    &.in-progress {
+    &.in-progress,
+    &.in-progress a {
       text-decoration: underline;
+      color: #db0000;
     }
 
     &.in-progress span.completed,
