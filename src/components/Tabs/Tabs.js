@@ -21,6 +21,8 @@ export class Tabs extends Component {
     if (nextProps.selectedIndex !== prevState.selectedIndex) {
       return { selectedIndex: nextProps.selectedIndex };
     }
+
+    return null;
   }
 
   render() {

@@ -1,0 +1,64 @@
+ol {
+  display: block;
+
+  li {
+    margin: 5px 0;
+    color: #0b0321;
+
+    a {
+      color: #0b0321;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    &.completed a {
+      text-decoration: line-through;
+      color: #7c7c7c;
+    }
+
+    &.completed span {
+      display: none;
+    }
+
+    &.in-progress,
+    &.in-progress a {
+      text-decoration: underline;
+      color: #db0000;
+    }
+
+    &.in-progress span.completed,
+    &.in-progress span.delete {
+      opacity: 0;
+    }
+
+    &.in-progress:hover span.completed,
+    &.in-progress:hover span.delete {
+      opacity: 1;
+    }
+
+    span {
+      display: inline-block;
+      margin-left: 15px;
+      cursor: pointer;
+      vertical-align: middle;
+
+      &.delete {
+        background: url('../../img/delete.png') no-repeat center;
+        height: 25px;
+        width: 18px;
+      }
+
+      &.completed{
+        background: url('../../img/completed.png') no-repeat center;
+        height: 25px;
+        width: 18px;
+      }
+
+      &.in-progress {
+        background: url('../../img/in-progress.png') no-repeat center;
+        height: 25px;
+        width: 25px;
+      }
+    }
+  }
+}

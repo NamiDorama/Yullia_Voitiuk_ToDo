@@ -17,10 +17,10 @@ export class AppComponent extends Component {
   };
 
   componentDidMount() {
-    this.container.error(
-      <strong>Error</strong>,
-      <em>Error</em>
-    );
+    // this.container.error(
+    //   <strong>Error</strong>,
+    //   <em>Error</em>
+    // );
 
     checkUser()
       .then((data) => {
@@ -29,8 +29,7 @@ export class AppComponent extends Component {
       .catch(err => this.props.dispatch(setUser(null)));
 
     errObserver.addObserver((err = 'Something goes wrong...') => this.props.user !== false && this.container.error(
-      <strong>{err}</strong>,
-      <em>Error</em>
+      <strong>{err}</strong>
     ));
   }
 

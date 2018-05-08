@@ -1,26 +1,65 @@
 import { Tabs, Tab } from '../../components/Tabs/index';
 import { Link } from 'react-router-dom';
-import { getTasksList } from '../../services';
+import {
+  getTasksList,
+  updateTask,
+  deleteTask,
+  errObserver
+} from '../../services';
+import { days, icons } from '../../consts';
+
+import './taskListTab.scss';
 
 export class TaskListTab extends Component {
   state = {
-    days: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-    tasksInWeek: null
+    tasksInWeek: []
   };
-
 
   componentDidMount() {
     getTasksList()
-      .then(data => {
-        this.setState({ tasksInWeek: data })
-      });
+      .then(tasksInWeek => this.setState({ tasksInWeek }));
+  };
+
+  createNewTask = (day) => {
+    this.props.history.push(`tasks/new_task?day=${day}`);
+  };
+
+  changeTaskStatus = (key, task, day) => {
+    let tasksInWeek = [...this.state.tasksInWeek];
+    const todayTasks = this.state.tasksInWeek[day];
+
+    if (key === 'completed') {
+      task.done = true;
+      updateTask(task)
+        .then(() => this.setState({ tasksInWeek }));
+    }
+
+    if (key === 'in-progress') {
+      let inProgress = todayTasks.filter(dayTask => dayTask.done === false);
+      console.log(inProgress);
+      if (inProgress.length < 2) {
+        task.done = false;
+            updateTask(task)
+              .then(() => this.setState({ tasksInWeek }));
+      } else {
+        errObserver.trigger('Sorry, only two tasks can be in progress');
+      }
+    }
+
+    if (key === 'delete') {
+      deleteTask(task.id)
+        .then(data => {
+          let tasks = todayTasks.filter(task => task.id !== data.id);
+          tasksInWeek[day] = tasks;
+          this.setState({ tasksInWeek });
+        });
+    }
   };
 
   render() {
-    const { days, tasksInWeek } = this.state;
+    const { tasksInWeek } = this.state;
 
     return (
-      tasksInWeek &&
       <Tabs selectedIndex={ new Date().getDay() }>
         {
           tasksInWeek.map((tasks, index) =>
@@ -31,17 +70,32 @@ export class TaskListTab extends Component {
               <ol>
                 {
                   tasks.map(task => (
-                    <li key={task.id}>
+                    <li
+                      key={task.id}
+                      className={
+                        `${typeof task.done !== 'undefined' && task.done ? 'completed' : 'not-completed'}
+                          ${task.done === false ? 'in-progress' : ''}`}
+                    >
                       <Link
                         to={`/tasks/${task.id}`}
                       >
                         {task.title}
                       </Link>
+                      {
+                        icons.map(icon => (
+                          <span
+                            key={icon}
+                            className={icon}
+                            title={icon}
+                            onClick={() => this.changeTaskStatus(icon, task, index)}
+                          />
+                        ))
+                      }
                     </li>
                   ) )
                 }
               </ol>
-              <button>Add new</button>
+              <button onClick={() => this.createNewTask(index)}>Add new</button>
             </Tab>
           )
         }

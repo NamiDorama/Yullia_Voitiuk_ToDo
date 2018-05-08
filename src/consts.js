@@ -24,3 +24,7 @@ export const users = [
     age: 31
   }
 ];
+
+export const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+export const icons = ['delete', 'in-progress', 'completed'];
