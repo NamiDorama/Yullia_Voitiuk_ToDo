@@ -35,12 +35,14 @@ export class TaskListTab extends Component {
     }
 
     if (key === 'in-progress') {
-      if (todayTasks.every((dayTask) => dayTask.done !== 'in-progress')) {
-        task.done = 'in-progress';
+      let inProgress = todayTasks.filter(dayTask => dayTask.done === false);
+      console.log(inProgress);
+      if (inProgress.length < 2) {
+        task.done = false;
             updateTask(task)
               .then(() => this.setState({ tasksInWeek }));
       } else {
-        errObserver.trigger('Sorry, only one task can be in progress');
+        errObserver.trigger('Sorry, only two tasks can be in progress');
       }
     }
 
@@ -71,9 +73,8 @@ export class TaskListTab extends Component {
                     <li
                       key={task.id}
                       className={
-                        `${
-                          task.done && task.done !== 'in-progress' ? 'completed' : 'not-completed'}
-                          ${task.done === 'in-progress' ? 'in-progress' : ''}`}
+                        `${typeof task.done !== 'undefined' && task.done ? 'completed' : 'not-completed'}
+                          ${task.done === false ? 'in-progress' : ''}`}
                     >
                       <Link
                         to={`/tasks/${task.id}`}
