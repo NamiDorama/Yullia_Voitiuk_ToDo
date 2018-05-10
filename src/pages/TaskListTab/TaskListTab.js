@@ -108,7 +108,7 @@ const mapStoreToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getTasks() {dispatch(getTasks())}
+  getTasks: (data) => dispatch(getTasks(data))
 });
 
 export const TaskListTab = connect(mapStoreToProps, mapDispatchToProps)(TaskListTabComponent);

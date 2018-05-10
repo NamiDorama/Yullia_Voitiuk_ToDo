@@ -21,7 +21,7 @@ export const request = (url, method = 'GET', body, options) => {
       return Promise.resolve(data);
     });
 
-  promise.catch(error => errObserver.trigger(error));
+  promise.catch(error => errObserver.trigger(String(error)));
 
   return promise;
 };
