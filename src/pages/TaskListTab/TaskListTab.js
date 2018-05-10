@@ -6,18 +6,16 @@ import {
   deleteTask,
   errObserver
 } from '../../services';
+import { tasksList, getTasks } from '../../store';
 import { days, icons } from '../../consts';
+import { connect } from 'react-redux';
 
 import './taskListTab.scss';
 
-export class TaskListTab extends Component {
-  state = {
-    tasksInWeek: []
-  };
-
+export class TaskListTabComponent extends Component {
   componentDidMount() {
     getTasksList()
-      .then(tasksInWeek => this.setState({ tasksInWeek }));
+      .then(tasksInWeek => this.props.getTasks(tasksInWeek));
   };
 
   createNewTask = (day) => {
@@ -57,9 +55,10 @@ export class TaskListTab extends Component {
   };
 
   render() {
-    const { tasksInWeek } = this.state;
+    const { tasksInWeek } = this.props;
 
     return (
+      tasksInWeek ?
       <Tabs selectedIndex={ new Date().getDay() }>
         {
           tasksInWeek.map((tasks, index) =>
@@ -99,7 +98,17 @@ export class TaskListTab extends Component {
             </Tab>
           )
         }
-      </Tabs>
+      </Tabs> : null
     );
   }
 }
+
+const mapStoreToProps = state => ({
+  tasksInWeek: state.tasksInWeek
+});
+
+const mapDispatchToProps = dispatch => ({
+  getTasks() {dispatch(getTasks())}
+});
+
+export const TaskListTab = connect(mapStoreToProps, mapDispatchToProps)(TaskListTabComponent);

@@ -1,10 +1,11 @@
 import {
   SET_USER,
   UPDATE_USER,
-  REMOVE_USER
+  REMOVE_USER,
+  GET_TASKS_LIST
 } from './actions';
 
-export const user = (state = false, { type, data }) => {
+export const user = (state = [], { type, data }) => {
   switch (type) {
     case SET_USER:
     case UPDATE_USER: {
@@ -13,6 +14,16 @@ export const user = (state = false, { type, data }) => {
 
     case REMOVE_USER:
       return null;
+  }
+
+  return state;
+};
+
+export const tasksList = (state = [], { type, data }) => {
+  switch (type) {
+    case GET_TASKS_LIST: {
+      return data;
+    }
   }
 
   return state;
