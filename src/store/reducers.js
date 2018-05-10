@@ -19,7 +19,7 @@ export const user = (state = [], { type, data }) => {
   return state;
 };
 
-export const tasksList = (state = [], { type, data }) => {
+export const tasksInWeek = (state = [], { type, data }) => {
   switch (type) {
     case GET_TASKS_LIST: {
       return data;

@@ -6,7 +6,7 @@ import {
   deleteTask,
   errObserver
 } from '../../services';
-import { tasksList, getTasks } from '../../store';
+import { getTasks } from '../../store';
 import { days, icons } from '../../consts';
 import { connect } from 'react-redux';
 
