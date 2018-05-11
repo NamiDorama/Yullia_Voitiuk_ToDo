@@ -7,36 +7,33 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { Preloader } from './components/Preloader/';
-import { checkUser } from './services';
-import { errObserver } from './services';
-import { setUser, getUser } from './store';
+import {
+  setUser,
+  getUser,
+  setError
+} from './store';
 
 export class AppComponent extends Component {
   setLoginState = (user) => {
     this.props.dispatch(setUser(user));
   };
 
+  componentDidUpdate() {
+    if (this.props.error) {
+      this.container.error(
+        <strong>{this.props.error}</strong>
+      );
+      this.props.dispatch(setError(''));
+    }
+  }
+
   componentDidMount() {
-    // this.container.error(
-    //   <strong>Error</strong>,
-    //   <em>Error</em>
-    // );
-
     this.props.dispatch(getUser());
-
-    // checkUser()
-    //   .then((data) => {
-    //     this.setLoginState(data)
-    //   })
-    //   .catch(err => this.props.dispatch(setUser(null)));
-
-    errObserver.addObserver((err = 'Something goes wrong...') => this.props.user !== false && this.container.error(
-      <strong>{err}</strong>
-    ));
   }
 
   render() {
     const { user } = this.props;
+
     return (
       <React.Fragment>
         <ToastContainer
@@ -64,7 +61,8 @@ export class AppComponent extends Component {
 }
 
 const mapStoreToProps = state => ({
-  user: state.user
+  user: state.user,
+  error: state.error
 });
 
 export const App = withRouter(connect(mapStoreToProps)(AppComponent));

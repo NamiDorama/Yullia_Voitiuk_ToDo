@@ -1,16 +1,15 @@
 import { Navigation } from '../Navigation/index';
-import { logout } from '../../services';
+import { logoutUser } from '../../store/actions';
+import { connect } from 'react-redux';
 import './header.scss';
 
 const navList = ['Home', 'Tasks', 'Gallery', 'Contacts'];
 
-export const Header = ({ user, setLoginState }) => {
+export const HeaderComponent = ({ user, dispatch }) => {
 
-  const logoutUser = () => {
-    logout()
-      .then(user => {
-        setLoginState(null)
-      });
+  const logoutHeandler = (e) => {
+    e.preventDefault();
+    dispatch(logoutUser());
   };
 
   return (
@@ -19,10 +18,12 @@ export const Header = ({ user, setLoginState }) => {
       <Navigation list={navList} user={user} />
       {
         user &&
-        <button onClick={logoutUser}>
+        <button onClick={(e) => logoutHeandler(e)}>
           Logout
         </button>
       }
     </div>
   );
 };
+
+export const Header = connect()(HeaderComponent);

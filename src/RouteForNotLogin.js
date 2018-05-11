@@ -11,7 +11,7 @@ export const RouteForNotLogin = ({ setLoginState }) => {
       />
       <Route
         path="/login"
-        render={() => <Login onLogin={setLoginState} />}
+        render={() => <Login />}
       />
       <Redirect to="/login"/>
     </Switch>
