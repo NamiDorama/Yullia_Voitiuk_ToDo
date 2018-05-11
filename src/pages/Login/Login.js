@@ -1,10 +1,10 @@
 import { Preloader } from '../../components/Preloader';
-import { login } from '../../services';
+import { loginUser } from '../../store/actions';
+import { connect } from 'react-redux';
 
-export class Login extends Component {
+export class LoginComponent extends Component {
   state = {
-    loader: false,
-    error: null
+    loader: false
   };
 
   submit = (event) => {
@@ -13,15 +13,17 @@ export class Login extends Component {
     event.preventDefault();
     this.setState({ loader: true });
 
-    login({email: email.value, password: password.value})
-      .then(user => {
-        this.props.onLogin(user)
-      })
-      .catch(err => this.setState({ error: err, loader: false }))
+   this.props.dispatch(loginUser({email: email.value, password: password.value}));
   };
 
+  componentDidUpdate() {
+    if(this.props.error) {
+      this.setState({ loader: false });
+    }
+  }
+
   render() {
-    const { loader, error } = this.state;
+    const { loader } = this.state;
 
     return (
       loader ?
@@ -47,12 +49,13 @@ export class Login extends Component {
               value="Log in"
             />
           </form>
-          {
-            error &&
-            <p>{error}</p>
-          }
         </React.Fragment>
-
-
     )};
 }
+
+const mapStoreToProps = state => ({
+  error: state.error
+});
+
+
+export const Login = connect(mapStoreToProps)(LoginComponent);

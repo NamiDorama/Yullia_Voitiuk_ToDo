@@ -2,10 +2,11 @@ import {
   SET_USER,
   UPDATE_USER,
   REMOVE_USER,
-  GET_TASKS_LIST
+  GET_TASKS_LIST,
+  SET_ERROR
 } from './actions';
 
-export const user = (state = [], { type, data }) => {
+export const user = (state = false, { type, data = [] }) => {
   switch (type) {
     case SET_USER:
     case UPDATE_USER: {
@@ -19,9 +20,19 @@ export const user = (state = [], { type, data }) => {
   return state;
 };
 
-export const tasksInWeek = (state = [], { type, data }) => {
+export const tasksInWeek = (state = [], { type, data = [] }) => {
   switch (type) {
     case GET_TASKS_LIST: {
+      return data;
+    }
+  }
+
+  return state;
+};
+
+export const error = (state = '', { type, data = '' }) => {
+  switch (type) {
+    case SET_ERROR: {
       return data;
     }
   }
