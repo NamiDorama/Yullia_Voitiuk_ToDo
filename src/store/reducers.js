@@ -3,7 +3,9 @@ import {
   UPDATE_USER,
   REMOVE_USER,
   GET_TASKS_LIST,
-  SET_ERROR
+  SET_ERROR,
+  CREATE_NEW_USER
+
 } from './actions';
 
 export const user = (state = false, { type, data = [] }) => {
@@ -11,6 +13,10 @@ export const user = (state = false, { type, data = [] }) => {
     case SET_USER:
     case UPDATE_USER: {
       return data;
+    }
+
+    case CREATE_NEW_USER: {
+      return data
     }
 
     case REMOVE_USER:

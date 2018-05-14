@@ -5,12 +5,16 @@ import {
   setUser,
   LOGIN_USER_ASYNC,
   LOGOUT_USER_ASYNC,
-  removeUser
+  removeUser,
+  CREATE_USER_ASYNC,
+  createUser
 } from '../actions';
+
 import {
   checkUser,
   login,
-  logout
+  logout,
+  createNewUserFetch
 } from '../../services';
 
 export function* getUser() {
@@ -41,10 +45,21 @@ export function* watchLoginUser() {
 export function* logoutUser({ data }) {
   try {
     yield logout(data);
-    yield put(removeUser())
+    yield put(createNewUserFetch())
   } catch(err) {}
 }
 
 export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER_ASYNC, logoutUser)
+}
+
+export function* create({ user }) {
+  try {
+    const newUser = yield createNewUserFetch(user);
+    yield put(createUser(newUser))
+  } catch(err) {}
+}
+
+export function* watchCreateUser() {
+  yield takeEvery(CREATE_USER_ASYNC, create)
 }

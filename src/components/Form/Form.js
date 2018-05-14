@@ -1,6 +1,8 @@
 import './form.scss';
+import { connect } from 'react-redux';
+import { createUserAsync } from '../../store';
 
-export class Form extends Component {
+export class FormComponent extends Component {
   static get fields() {
     return [
       { id: 'email', label: 'email', reg: /^\w+@\w+\.[a-z]{2,}$/ },
@@ -77,7 +79,8 @@ export class Form extends Component {
 
     if (error) return;
 
-    this.props.onSubmit(this.getFormValue());
+    console.log(this.getFormValue());
+    this.props.createUser(this.getFormValue());
   };
 
   getFormValue() {
@@ -86,6 +89,7 @@ export class Form extends Component {
     this.fields
       .filter(field => !this.props.excluded.includes(field.id))
       .filter(field => !field.value && !this.props.skipped.includes(field.id))
+      .filter(field => field.id !== 'repeatPassword')
       .forEach(field => form[field.id] = this.state[field.id].value);
 
     return form;
@@ -144,9 +148,18 @@ export class Form extends Component {
   }
 }
 
-Form.defaultProps = {
+FormComponent.defaultProps = {
   excluded: [],
   disabled: [],
-  skipped: [],
-  onSubmit: _ => _
+  skipped: []
 };
+
+const mapStoreToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  createUser(user) { dispatch(createUserAsync(user)); }
+});
+
+export const Form = connect(mapStoreToProps, mapDispatchToProps)(FormComponent);

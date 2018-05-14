@@ -15,7 +15,7 @@ import {
 
 export class AppComponent extends Component {
   setLoginState = (user) => {
-    this.props.dispatch(setUser(user));
+    this.props.setUser(user);
   };
 
   componentDidUpdate() {
@@ -23,12 +23,12 @@ export class AppComponent extends Component {
       this.container.error(
         <strong>{this.props.error}</strong>
       );
-      this.props.dispatch(setError(''));
+      this.props.setError('');
     }
   }
 
   componentDidMount() {
-    this.props.dispatch(getUser());
+    this.props.getUser();
   }
 
   render() {
@@ -65,4 +65,10 @@ const mapStoreToProps = state => ({
   error: state.error
 });
 
-export const App = withRouter(connect(mapStoreToProps)(AppComponent));
+const mapDispatchToProps = dispatch => ({
+  setUser(user) { dispatch(setUser(user)); },
+  getUser() { dispatch(getUser()); },
+  setError(err) { dispatch(setError(err)); }
+});
+
+export const App = withRouter(connect(mapStoreToProps, mapDispatchToProps)(AppComponent));
