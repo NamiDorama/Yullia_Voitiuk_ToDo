@@ -1,6 +1,6 @@
 import './form.scss';
 import { connect } from 'react-redux';
-import { createUserAsync } from '../../store';
+import { Redirect } from 'react-router-dom';
 
 export class FormComponent extends Component {
   static get fields() {
@@ -79,8 +79,7 @@ export class FormComponent extends Component {
 
     if (error) return;
 
-    console.log(this.getFormValue());
-    this.props.createUser(this.getFormValue());
+    this.props.onSubmitCallback(this.getFormValue());
   };
 
   getFormValue() {
@@ -104,46 +103,52 @@ export class FormComponent extends Component {
 
   render() {
     const { state, fields } = this;
-    const { excluded, disabled } = this.props;
+    const { excluded, disabled, registered } = this.props;
 
     return (
-      <form
-        className="form"
-        onSubmit={this.save}
-      >
-        <ul>{fields
-          .filter(({ id }) => !excluded.includes(id))
-          .map(({ label, secure, id }, index) => {
-            const stateField = state[id];
+      <React.Fragment>
+        <form
+          className="form"
+          onSubmit={this.save}
+        >
+          <ul>{fields
+            .filter(({ id }) => !excluded.includes(id))
+            .map(({ label, secure, id }, index) => {
+              const stateField = state[id];
 
-            return (
-              <li key={label}>
-                <input
-                  type={secure ? 'password' : 'text'}
-                  name={id}
-                  className={stateField.error ? 'error' : 'correct'}
-                  placeholder={label.toUpperCase()}
-                  value={stateField.value}
-                  onChange={this.setValue}
-                  onBlur={() => this.validate(index)}
-                  disabled={disabled.includes(id)}
-                />
-                {stateField.error && <span className="error-text">{stateField.error}</span>}
-              </li>
-            );
-          })}
-        </ul>
+              return (
+                <li key={label}>
+                  <input
+                    type={secure ? 'password' : 'text'}
+                    name={id}
+                    className={stateField.error ? 'error' : 'correct'}
+                    placeholder={label.toUpperCase()}
+                    value={stateField.value}
+                    onChange={this.setValue}
+                    onBlur={() => this.validate(index)}
+                    disabled={disabled.includes(id)}
+                  />
+                  {stateField.error && <span className="error-text">{stateField.error}</span>}
+                </li>
+              );
+            })}
+          </ul>
 
-        {state.error && <span className="error-text">{state.error}</span>}
+          {state.error && <span className="error-text">{state.error}</span>}
 
-        <br/>
+          <br/>
 
-        <input
-          type="submit"
-          value="Save"
-          disabled={this.getDisabledState()}
-        />
-      </form>
+          <input
+            type="submit"
+            value="Save"
+            disabled={this.getDisabledState()}
+          />
+        </form>
+        {
+          registered &&
+          <Redirect to="/success_page"/>
+        }
+      </React.Fragment>
     );
   }
 }
@@ -154,12 +159,6 @@ FormComponent.defaultProps = {
   skipped: []
 };
 
-const mapStoreToProps = state => ({
-  user: state.user
-});
+const mapStoreToProps = ({ registered }) => ({ registered });
 
-const mapDispatchToProps = dispatch => ({
-  createUser(user) { dispatch(createUserAsync(user)); }
-});
-
-export const Form = connect(mapStoreToProps, mapDispatchToProps)(FormComponent);
+export const Form = connect(mapStoreToProps)(FormComponent);

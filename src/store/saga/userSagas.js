@@ -7,14 +7,17 @@ import {
   LOGOUT_USER_ASYNC,
   removeUser,
   CREATE_USER_ASYNC,
-  createUser
+  createUser,
+  UPDATE_USER_ASYNC,
+  updateUser
 } from '../actions';
 
 import {
   checkUser,
   login,
   logout,
-  createNewUserFetch
+  createNewUserFetch,
+  updateUserFetch
 } from '../../services';
 
 export function* getUser() {
@@ -33,7 +36,8 @@ export function* watchUser() {
 export function* loginUser({ data }) {
   try {
     const user = yield login(data);
-    yield put(setUser(user))
+    yield put(setUser(user));
+    yield put(createUser(false));
   } catch(err) {}
 }
 
@@ -45,7 +49,7 @@ export function* watchLoginUser() {
 export function* logoutUser({ data }) {
   try {
     yield logout(data);
-    yield put(createNewUserFetch())
+    yield put(removeUser())
   } catch(err) {}
 }
 
@@ -53,13 +57,26 @@ export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER_ASYNC, logoutUser)
 }
 
-export function* create({ user }) {
+
+export function* create({ data }) {
   try {
-    const newUser = yield createNewUserFetch(user);
-    yield put(createUser(newUser))
+    yield createNewUserFetch(data);
+    yield put(createUser(true));
   } catch(err) {}
 }
 
 export function* watchCreateUser() {
   yield takeEvery(CREATE_USER_ASYNC, create)
+}
+
+
+export function* update({ data }) {
+  try {
+    yield updateUserFetch(data);
+    yield put(updateUser(data));
+  } catch(err) {}
+}
+
+export function* watchUpdateUser() {
+  yield takeEvery(UPDATE_USER_ASYNC, update)
 }

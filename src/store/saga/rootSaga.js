@@ -3,7 +3,8 @@ import {
   watchUser,
   watchLoginUser,
   watchLogoutUser,
-  watchCreateUser
+  watchCreateUser,
+  watchUpdateUser
 } from './userSagas';
 
 export function* rootSaga() {
@@ -11,6 +12,7 @@ export function* rootSaga() {
     watchUser(),
     watchLoginUser(),
     watchLogoutUser(),
-    watchCreateUser()
+    watchCreateUser(),
+    watchUpdateUser()
   ]);
 }

@@ -15,10 +15,6 @@ export const user = (state = false, { type, data = [] }) => {
       return data;
     }
 
-    case CREATE_NEW_USER: {
-      return data
-    }
-
     case REMOVE_USER:
       return null;
   }
@@ -39,6 +35,16 @@ export const tasksInWeek = (state = [], { type, data = [] }) => {
 export const error = (state = '', { type, data = '' }) => {
   switch (type) {
     case SET_ERROR: {
+      return data;
+    }
+  }
+
+  return state;
+};
+
+export const registered = (state = false, { type, data = false }) => {
+  switch (type) {
+    case CREATE_NEW_USER: {
       return data;
     }
   }
