@@ -6,7 +6,7 @@ import {
   SET_ERROR,
   CREATE_NEW_USER
 
-} from './actions';
+} from './';
 
 export const user = (state = false, { type, data = [] }) => {
   switch (type) {

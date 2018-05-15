@@ -1,5 +1,5 @@
 import { Navigation } from '../Navigation/index';
-import { logoutUser } from '../../store/actions';
+import { logoutUser } from '../../store';
 import { connect } from 'react-redux';
 import './header.scss';
 

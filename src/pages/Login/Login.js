@@ -1,5 +1,5 @@
 import { Preloader } from '../../components/Preloader';
-import { loginUser } from '../../store/actions';
+import { loginUser } from '../../store';
 import { connect } from 'react-redux';
 
 export class LoginComponent extends Component {

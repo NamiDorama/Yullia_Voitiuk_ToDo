@@ -10,7 +10,7 @@ import {
   createUser,
   UPDATE_USER_ASYNC,
   updateUser
-} from '../actions';
+} from '../actionUser';
 
 import {
   checkUser,
