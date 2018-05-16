@@ -1,46 +1,43 @@
 import './task.scss';
+import { connect } from 'react-redux';
 import {
-  getTask,
-  updateTask,
-  createTask
-} from '../../services';
+  getTaskByIdAsync,
+  updateTaskAsync,
+  createTaskAsync
+} from '../../store/actionTask'
 import { days } from '../../consts';
 
-export class Task extends Component {
+export class TaskComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
       description: '',
       id: null
-    }
+    };
   }
 
   componentDidMount() {
     const { task } = this.props.match.params;
-
-    if (task === 'new_task') {
-      this.setState({ day: this.getDay() });
-      return;
+    if (task !== 'new_task') {
+      this.props.getTask(task);
     }
-
-    getTask(task)
-      .then(data => this.setState({ ...data }))
   }
 
-  getDay() {
-    return this.props.location.search.replace(/\D+/, '') || '';
+  static getDerivedStateFromProps(nextProps) {
+    if (nextProps.match.params.task !== 'new_task') {
+      return { ...nextProps.currentTask }
+    }
+    return { day: nextProps.location.search.replace(/\D+/, '') || '' }
   }
 
   updateUsersTask = (event) => {
     const { task } = this.props.match.params;
 
-    let promise = task === 'new_task' ? createTask(this.state) : updateTask(this.state);
+    Promise.resolve(task === 'new_task' ? this.props.createTask(this.state) : this.props.updateTask(this.state))
+      .then(() => this.props.history.push('/tasks'));
 
     event.preventDefault();
-
-    promise
-      .then(() => this.props.history.push('/tasks'));
   };
 
   changeInput = ({ target }) => {
@@ -50,7 +47,7 @@ export class Task extends Component {
   render() {
     const { title, description, day } = this.state;
 
-    return (
+    return(
       <form
         className="task"
         onSubmit={this.updateUsersTask}
@@ -77,3 +74,16 @@ export class Task extends Component {
     );
   }
 }
+
+const mapStoreToProps = state => ({
+  currentTask: state.currentTask
+});
+
+const mapDispatchToProps = dispatch => ({
+  getTask(data) { dispatch(getTaskByIdAsync(data))},
+  updateTask(data) { dispatch(updateTaskAsync(data))},
+  createTask(data) { dispatch(createTaskAsync(data))},
+  setError(err) { dispatch(setError(err)); }
+});
+
+export const Task = connect(mapStoreToProps, mapDispatchToProps)(TaskComponent);

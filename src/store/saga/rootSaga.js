@@ -6,6 +6,13 @@ import {
   watchCreateUser,
   watchUpdateUser
 } from './userSagas';
+import {
+  watchGetTasksList,
+  watchUpdateTask,
+  watchDeleteTask,
+  watchGetOneTask,
+  watchCreateTask
+} from './tasksSagas';
 
 export function* rootSaga() {
   yield all([
@@ -13,6 +20,11 @@ export function* rootSaga() {
     watchLoginUser(),
     watchLogoutUser(),
     watchCreateUser(),
-    watchUpdateUser()
+    watchUpdateUser(),
+    watchGetTasksList(),
+    watchUpdateTask(),
+    watchDeleteTask(),
+    watchGetOneTask(),
+    watchCreateTask()
   ]);
 }
