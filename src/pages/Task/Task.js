@@ -1,5 +1,6 @@
 import './task.scss';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
   getTaskByIdAsync,
   updateTaskAsync,
@@ -34,8 +35,7 @@ export class TaskComponent extends Component {
   updateUsersTask = (event) => {
     const { task } = this.props.match.params;
 
-    Promise.resolve(task === 'new_task' ? this.props.createTask(this.state) : this.props.updateTask(this.state))
-      .then(() => this.props.history.push('/tasks'));
+    task === 'new_task' ? this.props.createTask(this.state) : this.props.updateTask(this.state);
 
     event.preventDefault();
   };
@@ -45,7 +45,7 @@ export class TaskComponent extends Component {
   };
 
   render() {
-    const { title, description, day } = this.state;
+    const { title, description, day, updated } = this.state;
 
     return(
       <form
@@ -70,6 +70,8 @@ export class TaskComponent extends Component {
         >
       </textarea>
         <button>Save</button>
+
+        { updated && <Redirect to="/tasks" /> }
       </form>
     );
   }

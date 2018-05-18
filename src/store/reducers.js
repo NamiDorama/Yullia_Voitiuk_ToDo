@@ -51,7 +51,6 @@ export const tasksInWeek = (state = [], { type, data = [] }) => {
     case CREATE_TASK: {
       const tasksInWeek = [...state];
       tasksInWeek[data.day].push(data);
-      console.log(tasksInWeek, tasksInWeek[data.day]);
       return tasksInWeek;
     }
 
