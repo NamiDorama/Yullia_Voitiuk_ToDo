@@ -11,7 +11,8 @@ import {
   watchUpdateTask,
   watchDeleteTask,
   watchGetOneTask,
-  watchCreateTask
+  watchCreateTask,
+  watchUpdateCurrentTask
 } from './tasksSagas';
 
 export function* rootSaga() {
@@ -25,6 +26,7 @@ export function* rootSaga() {
     watchUpdateTask(),
     watchDeleteTask(),
     watchGetOneTask(),
-    watchCreateTask()
+    watchCreateTask(),
+    watchUpdateCurrentTask()
   ]);
 }

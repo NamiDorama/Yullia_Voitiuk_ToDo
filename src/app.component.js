@@ -35,7 +35,7 @@ export class AppComponent extends Component {
     const { user } = this.props;
 
     return (
-      <React.Fragment>
+      <div className="row">
         <ToastContainer
           ref={ref => this.container = ref}
           className="toast-top-right"
@@ -55,7 +55,7 @@ export class AppComponent extends Component {
               <Preloader />
           }
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

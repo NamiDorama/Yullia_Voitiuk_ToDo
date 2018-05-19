@@ -8,7 +8,8 @@ import {
   UPDATE_TASK,
   DELETE_TASK,
   GET_TASK_BY_ID,
-  CREATE_TASK
+  CREATE_TASK,
+  UPDATE_CURRENT_TASK
 } from './';
 
 export const user = (state = false, { type, data = [] }) => {
@@ -61,6 +62,7 @@ export const tasksInWeek = (state = [], { type, data = [] }) => {
 
 export const currentTask = (state = {}, { type, data = {} }) => {
   switch (type) {
+    case UPDATE_CURRENT_TASK:
     case GET_TASK_BY_ID: {
       return data;
     }

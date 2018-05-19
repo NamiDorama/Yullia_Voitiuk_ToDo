@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
   getTaskByIdAsync,
-  updateTaskAsync,
-  createTaskAsync
+  updateCurrentTaskAsync,
+  createTaskAsync,
+  updateCurrentTask
 } from '../../store/actionTask'
 import { days } from '../../consts';
 
@@ -18,13 +19,6 @@ export class TaskComponent extends Component {
     };
   }
 
-  componentDidMount() {
-    const { task } = this.props.match.params;
-    if (task !== 'new_task') {
-      this.props.getTask(task);
-    }
-  }
-
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.match.params.task !== 'new_task') {
       return { ...nextProps.currentTask }
@@ -32,10 +26,23 @@ export class TaskComponent extends Component {
     return { day: nextProps.location.search.replace(/\D+/, '') || '' }
   }
 
+  componentDidMount() {
+    const { task } = this.props.match.params;
+    if (task !== 'new_task') {
+      this.props.getTask(task);
+    }
+  }
+
+  componentWillUnmount() {
+    const task = {...this.state};
+    delete task.updated;
+    this.props.deleteUpdated(task);
+  }
+
   updateUsersTask = (event) => {
     const { task } = this.props.match.params;
 
-    task === 'new_task' ? this.props.createTask(this.state) : this.props.updateTask(this.state);
+    task === 'new_task' ? this.props.createTask(this.state) : this.props.updateCurrent(this.state);
 
     event.preventDefault();
   };
@@ -77,15 +84,12 @@ export class TaskComponent extends Component {
   }
 }
 
-const mapStoreToProps = state => ({
-  currentTask: state.currentTask
-});
-
 const mapDispatchToProps = dispatch => ({
   getTask(data) { dispatch(getTaskByIdAsync(data))},
-  updateTask(data) { dispatch(updateTaskAsync(data))},
+  updateCurrent(data) { dispatch(updateCurrentTaskAsync(data))},
+  deleteUpdated(data) { dispatch(updateCurrentTask(data))},
   createTask(data) { dispatch(createTaskAsync(data))},
   setError(err) { dispatch(setError(err)); }
 });
 
-export const Task = connect(mapStoreToProps, mapDispatchToProps)(TaskComponent);
+export const Task = connect(({ currentTask }) => ({ currentTask }), mapDispatchToProps)(TaskComponent);

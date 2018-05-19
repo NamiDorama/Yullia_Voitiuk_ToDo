@@ -9,7 +9,9 @@ import {
   GET_TASK_BY_ID_ASYNC,
   getTaskById,
   CREATE_TASK_ASYNC,
-  createTask
+  createTask,
+  UPDATE_CURRENT_TASK_ASYNC,
+  updateCurrentTask
 } from '../actionTask';
 import {
   getTasksListFetch,
@@ -68,6 +70,18 @@ export function* update({ data }) {
 
 export function* watchUpdateTask() {
   yield takeEvery(UPDATE_TASK_ASYNC, update)
+}
+
+export function* updateCurrent({ data }) {
+  try {
+    const task = yield updateTaskFetch(data);
+    task.updated = true;
+    yield put(updateCurrentTask(task));
+  } catch(err) {}
+}
+
+export function* watchUpdateCurrentTask() {
+  yield takeEvery(UPDATE_CURRENT_TASK_ASYNC, updateCurrent)
 }
 
 // Deleting task
