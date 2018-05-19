@@ -1,8 +1,7 @@
 import './form.scss';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
-export class FormComponent extends Component {
+export class Form extends Component {
   static get fields() {
     return [
       { id: 'email', label: 'email', reg: /^\w+@\w+\.[a-z]{2,}$/ },
@@ -153,12 +152,9 @@ export class FormComponent extends Component {
   }
 }
 
-FormComponent.defaultProps = {
+Form.defaultProps = {
   excluded: [],
   disabled: [],
   skipped: []
 };
 
-const mapStoreToProps = ({ registered }) => ({ registered });
-
-export const Form = connect(mapStoreToProps)(FormComponent);

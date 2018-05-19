@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Form } from '../../components/Form';
 import { createUserAsync } from '../../store';
 
@@ -8,9 +9,15 @@ export const UserCreateComponent = (props) => {
   };
 
   return (
-    <Form
-      onSubmitCallback={createUserHandler}
-    />
+    <React.Fragment>
+      <Form
+        onSubmitCallback={createUserHandler}
+      />
+      {
+        props.registered && <Redirect to="/success_page" />
+      }
+    </React.Fragment>
+
   )
 };
 
@@ -18,4 +25,4 @@ const mapDispatchToProps = dispatch => ({
   createUser(user) { dispatch(createUserAsync(user)); }
 });
 
-export const UserCreate = connect(null, mapDispatchToProps)(UserCreateComponent);
+export const UserCreate = connect(({ registered }) => ({ registered }), mapDispatchToProps)(UserCreateComponent);
