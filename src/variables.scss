@@ -6,4 +6,21 @@ $link-color: #d9dada;
 $normal-margin: 25px;
 $normal-fz: 16px;
 $normal-display: flex;
-$background-image: linear-gradient(to top, #9890e3 0%, #b1f4cf 100%);
+
+@mixin link-to {
+  min-width: 120px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  color: $link-color;
+  background-color: $black;
+  border: 1px solid $link-color;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    color: $black;
+    background-color: $link-color;
+    border: 1px solid $black;
+  }
+}

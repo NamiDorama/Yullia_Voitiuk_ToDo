@@ -13,7 +13,8 @@ body {
   }
 
   .wrapper {
-    flex: 85%;
+    width: 85%;
+    margin: 1% 0 0 15%;
     display: flex;
     justify-content: center;
     min-height: 300px;

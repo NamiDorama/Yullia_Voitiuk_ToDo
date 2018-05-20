@@ -7,8 +7,9 @@ $list-color: darken($normal-bgc, 5%);
 
   ul {
     list-style: none;
-    margin: 0;
+    margin: 25% 0;
     padding: 0;
+    text-align: center;
 
     li {
       padding: 10px;
@@ -18,15 +19,24 @@ $list-color: darken($normal-bgc, 5%);
       a {
         text-decoration: none;
         color: $link-color;
-        font-weight: 600;
         display: inline-block;
 
         &:hover,
         &.active {
-          //color: #ffc7b4;
+          color: white;
           text-decoration: underline;
-          text-shadow: 0 0 3px #ffffff;
         }
+      }
+
+      button {
+        min-width: 120px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        color: #b9babe;
+        background-color: #110f0f;
+        border: 1px solid #bbbdc1;
+        text-transform: uppercase;
+        cursor: pointer;
       }
     }
   }

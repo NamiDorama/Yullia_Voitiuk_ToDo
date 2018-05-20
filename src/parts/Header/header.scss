@@ -1,15 +1,17 @@
 @import '../../variables.scss';
 
 #header {
-  flex: 15%;
+  width: 15%;
+  position: fixed;
+  height: 100%;
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 25px;
   background-color: $black;
 
   img {
-    margin-right: $normal-margin;
-    width: 80px;
+    margin: 10px 0 20px;
   }
 
   h1 {

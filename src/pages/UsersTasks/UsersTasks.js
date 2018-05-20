@@ -25,8 +25,8 @@ export class UsersTasks extends Component {
             <li>Waiting: <span>{tasksInfo.waiting}</span></li>
           </ul>
         </div>
-        <p>
-          <Link to="/tasks">
+        <p className="link-to">
+          <Link activeClassName="active" to="/tasks">
             Go to the task list
           </Link>
         </p>

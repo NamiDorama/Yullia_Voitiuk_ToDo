@@ -12,7 +12,6 @@ export const Navigation = ({ list, user }) => {
             <li key={item}>
               <NavLink
                 to={href}
-                exact
                 activeClassName="active"
               >
                 {item}
