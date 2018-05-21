@@ -1,46 +1,57 @@
 import './task.scss';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
-  getTask,
-  updateTask,
-  createTask
-} from '../../services';
+  getTaskByIdAsync,
+  updateCurrentTaskAsync,
+  createTaskAsync,
+  updateCurrentTask
+} from '../../store/actionTask'
+import { days } from '../../consts';
 
-export class Task extends Component {
+export class TaskComponent extends Component {
   constructor(props) {
     super(props);
-    this.days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
     this.state = {
       title: '',
       description: '',
       id: null
+    };
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+
+    if (nextProps.match.params.task !== 'new_task') {
+      return { ...nextProps.currentTask }
     }
+    if (typeof nextProps.currentTask.id !== 'undefined') {
+      return { ...nextProps.currentTask }
+    }
+    return null;
   }
 
   componentDidMount() {
     const { task } = this.props.match.params;
 
     if (task === 'new_task') {
-      this.setState({ day: this.getDay() });
+      this.setState({ day: this.props.location.search.replace(/\D+/, '') || '' });
       return;
     }
 
-    getTask(task)
-      .then(data => this.setState({ ...data }))
+    this.props.getTask(task);
+
   }
 
-  getDay() {
-    return this.props.location.search.replace(/\D+/, '') || '';
+  componentWillUnmount() {
+    this.props.deleteUpdated(false);
   }
 
   updateUsersTask = (event) => {
     const { task } = this.props.match.params;
 
-    let promise = task === 'new_task' ? createTask(this.state) : updateTask(this.state);
+    task === 'new_task' ? this.props.createTask(this.state) : this.props.updateCurrent(this.state);
 
     event.preventDefault();
-
-    promise
-      .then(() => this.props.history.push('/tasks'));
   };
 
   changeInput = ({ target }) => {
@@ -48,14 +59,14 @@ export class Task extends Component {
   };
 
   render() {
-    const { title, description, day } = this.state;
+    const { title, description, day, updated } = this.state;
 
-    return (
+    return(
       <form
         className="task"
         onSubmit={this.updateUsersTask}
       >
-        <p>Day: {this.days[day]}</p>
+        <p>Day: {days[day]}</p>
         <input
           type="text"
           placeholder="Enter a title"
@@ -73,7 +84,19 @@ export class Task extends Component {
         >
       </textarea>
         <button>Save</button>
+
+        { updated && <Redirect to="/tasks" /> }
       </form>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  getTask(data) { dispatch(getTaskByIdAsync(data))},
+  updateCurrent(data) { dispatch(updateCurrentTaskAsync(data))},
+  deleteUpdated(data) { dispatch(updateCurrentTask(data))},
+  createTask(data) { dispatch(createTaskAsync(data))},
+  setError(err) { dispatch(setError(err)); }
+});
+
+export const Task = connect(({ currentTask }) => ({ currentTask }), mapDispatchToProps)(TaskComponent);

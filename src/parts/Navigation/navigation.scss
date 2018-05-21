@@ -6,28 +6,37 @@ $list-color: darken($normal-bgc, 5%);
   width: 70%;
 
   ul {
-    display: $normal-display;
-    justify-content: flex-end;
     list-style: none;
-    margin: 0;
+    margin: 25% 0;
+    padding: 0;
+    text-align: center;
 
     li {
-      padding: 20px;
+      padding: 10px;
       text-transform: uppercase;
       font-size: $normal-fz - 2;
 
       a {
         text-decoration: none;
-        color: #e43c28;
-        font-weight: 600;
+        color: $link-color;
         display: inline-block;
 
         &:hover,
         &.active {
-          //color: #ffc7b4;
+          color: white;
           text-decoration: underline;
-          text-shadow: 0 0 3px #ffffff;
         }
+      }
+
+      button {
+        min-width: 120px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        color: #b9babe;
+        background-color: #110f0f;
+        border: 1px solid #bbbdc1;
+        text-transform: uppercase;
+        cursor: pointer;
       }
     }
   }

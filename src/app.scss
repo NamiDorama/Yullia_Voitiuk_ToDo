@@ -3,19 +3,21 @@
 body {
   height: 100vh;
   font-family: $normal-ff;
-  background-image: linear-gradient(to top, #a8edea 0%, #ffedf3 100%);
   color: $normal-color;
   margin: 0;
+  position: relative;
+  background: $normal-bgc url('./img/bg.png') no-repeat right bottom;
+
+  .row {
+    display: flex;
+  }
 
   .wrapper {
-    flex-direction: column;
+    width: 85%;
+    margin: 1% 0 0 15%;
     display: flex;
-    justify-content: flex-start;
-    margin: 30px auto;
+    justify-content: center;
     min-height: 300px;
-    max-width: 700px;
     padding: $normal-margin;
-    border: 4px double#e43c28;
-    background-image: linear-gradient(to bottom, #c8faf8 0%, #fae7ee 100%);
   }
 }

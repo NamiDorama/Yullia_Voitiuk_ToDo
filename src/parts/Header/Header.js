@@ -1,9 +1,9 @@
 import { Navigation } from '../Navigation/index';
-import { logoutUser } from '../../store/actions';
+import { logoutUser } from '../../store';
 import { connect } from 'react-redux';
 import './header.scss';
 
-const navList = ['Home', 'Tasks', 'Gallery', 'Contacts'];
+const navList = ['Home', 'Tasks', 'Contacts'];
 
 export const HeaderComponent = ({ user, dispatch }) => {
 

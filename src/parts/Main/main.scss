@@ -1,7 +1,6 @@
 @import '../../variables';
 
 button {
-  min-width: 50px;
-  padding: 10px;
+  @include link-to;
 
 }

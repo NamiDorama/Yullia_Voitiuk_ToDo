@@ -1,17 +1,19 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Login } from './pages/Login';
-import { Form } from './components/Form';
+import { UserCreate } from './components/UserCreate';
+import { SuccessPage } from './components/SuccessPage';
 
-export const RouteForNotLogin = ({ setLoginState }) => {
+export const RouteForNotLogin = () => {
   return (
     <Switch>
       <Route
         path="/user_create" exact
-        render={() => <Form onLogin={setLoginState} />}
+        component={UserCreate}
       />
+      <Route path="/success_page" component={SuccessPage} />
       <Route
         path="/login"
-        render={() => <Login />}
+        component={Login}
       />
       <Redirect to="/login"/>
     </Switch>

@@ -1,12 +1,11 @@
 import { Tabs, Tab } from '../../components/Tabs/index';
 import { Link } from 'react-router-dom';
 import {
-  getTasksList,
-  updateTask,
-  deleteTask,
-  errObserver
-} from '../../services';
-import { getTasks } from '../../store';
+  getTasksAsync,
+  updateTaskAsync,
+  deleteTaskAsync,
+  setError
+} from '../../store';
 import { days, icons } from '../../consts';
 import { connect } from 'react-redux';
 
@@ -14,8 +13,7 @@ import './taskListTab.scss';
 
 export class TaskListTabComponent extends Component {
   componentDidMount() {
-    getTasksList()
-      .then(tasksInWeek => this.props.getTasks(tasksInWeek));
+    this.props.getTasks()
   };
 
   createNewTask = (day) => {
@@ -23,34 +21,25 @@ export class TaskListTabComponent extends Component {
   };
 
   changeTaskStatus = (key, task, day) => {
-    let tasksInWeek = [...this.state.tasksInWeek];
-    const todayTasks = this.state.tasksInWeek[day];
+    const todayTasks = this.props.tasksInWeek[day];
 
     if (key === 'completed') {
       task.done = true;
-      updateTask(task)
-        .then(() => this.setState({ tasksInWeek }));
+      this.props.updateTask(task);
     }
 
     if (key === 'in-progress') {
       let inProgress = todayTasks.filter(dayTask => dayTask.done === false);
-      console.log(inProgress);
       if (inProgress.length < 2) {
         task.done = false;
-            updateTask(task)
-              .then(() => this.setState({ tasksInWeek }));
+        this.props.updateTask(task);
       } else {
-        errObserver.trigger('Sorry, only two tasks can be in progress');
+        this.props.setError('Sorry, only two tasks can be in progress');
       }
     }
 
     if (key === 'delete') {
-      deleteTask(task.id)
-        .then(data => {
-          let tasks = todayTasks.filter(task => task.id !== data.id);
-          tasksInWeek[day] = tasks;
-          this.setState({ tasksInWeek });
-        });
+      this.props.deleteTask(task);
     }
   };
 
@@ -58,7 +47,7 @@ export class TaskListTabComponent extends Component {
     const { tasksInWeek } = this.props;
 
     return (
-      tasksInWeek ?
+      tasksInWeek &&
       <Tabs selectedIndex={ new Date().getDay() }>
         {
           tasksInWeek.map((tasks, index) =>
@@ -98,7 +87,7 @@ export class TaskListTabComponent extends Component {
             </Tab>
           )
         }
-      </Tabs> : null
+      </Tabs>
     );
   }
 }
@@ -108,7 +97,10 @@ const mapStoreToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getTasks: (data) => dispatch(getTasks(data))
+  getTasks() { dispatch(getTasksAsync())},
+  updateTask(data) { dispatch(updateTaskAsync(data))},
+  deleteTask(data) { dispatch(deleteTaskAsync(data))},
+  setError(err) { dispatch(setError(err)); }
 });
 
 export const TaskListTab = connect(mapStoreToProps, mapDispatchToProps)(TaskListTabComponent);
