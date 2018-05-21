@@ -155,6 +155,7 @@ export class Form extends Component {
 Form.defaultProps = {
   excluded: [],
   disabled: [],
-  skipped: []
+  skipped: [],
+  onSubmitCallback: _=>_
 };
 
