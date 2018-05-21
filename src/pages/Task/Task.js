@@ -20,23 +20,30 @@ export class TaskComponent extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
+
     if (nextProps.match.params.task !== 'new_task') {
       return { ...nextProps.currentTask }
     }
-    return { day: nextProps.location.search.replace(/\D+/, '') || '' }
+    if (typeof nextProps.currentTask.id !== 'undefined') {
+      return { ...nextProps.currentTask }
+    }
+    return null;
   }
 
   componentDidMount() {
     const { task } = this.props.match.params;
-    if (task !== 'new_task') {
-      this.props.getTask(task);
+
+    if (task === 'new_task') {
+      this.setState({ day: this.props.location.search.replace(/\D+/, '') || '' });
+      return;
     }
+
+    this.props.getTask(task);
+
   }
 
   componentWillUnmount() {
-    const task = {...this.state};
-    delete task.updated;
-    this.props.deleteUpdated(task);
+    this.props.deleteUpdated(false);
   }
 
   updateUsersTask = (event) => {

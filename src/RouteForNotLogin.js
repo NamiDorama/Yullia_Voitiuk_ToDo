@@ -13,7 +13,7 @@ export const RouteForNotLogin = () => {
       <Route path="/success_page" component={SuccessPage} />
       <Route
         path="/login"
-        render={() => <Login />}
+        component={Login}
       />
       <Redirect to="/login"/>
     </Switch>

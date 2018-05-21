@@ -49,20 +49,21 @@ export const tasksInWeek = (state = [], { type, data = [] }) => {
       return tasksInWeek;
     }
 
-    case CREATE_TASK: {
-      const tasksInWeek = [...state];
-      tasksInWeek[data.day].push(data);
-      return tasksInWeek;
-    }
+    // case CREATE_TASK: {
+    //   const tasksInWeek = [...state];
+    //   tasksInWeek[data.day].push(data);
+    //   return tasksInWeek;
+    // }
 
   }
 
   return state;
 };
 
-export const currentTask = (state = {}, { type, data = {} }) => {
+export const currentTask = (state = {}, { type, data = false }) => {
   switch (type) {
     case UPDATE_CURRENT_TASK:
+    case CREATE_TASK:
     case GET_TASK_BY_ID: {
       return data;
     }

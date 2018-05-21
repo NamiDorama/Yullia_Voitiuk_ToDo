@@ -1,4 +1,4 @@
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, all } from 'redux-saga/effects';
 
 import {
   GET_USER_ASYNC,
@@ -29,10 +29,6 @@ export function* getUser() {
   }
 }
 
-export function* watchUser() {
-  yield takeEvery(GET_USER_ASYNC, getUser)
-}
-
 export function* loginUser({ data }) {
   try {
     const user = yield login(data);
@@ -41,22 +37,12 @@ export function* loginUser({ data }) {
   } catch(err) {}
 }
 
-export function* watchLoginUser() {
-  yield takeEvery(LOGIN_USER_ASYNC, loginUser)
-}
-
-
 export function* logoutUser({ data }) {
   try {
     yield logout(data);
     yield put(removeUser())
   } catch(err) {}
 }
-
-export function* watchLogoutUser() {
-  yield takeEvery(LOGOUT_USER_ASYNC, logoutUser)
-}
-
 
 export function* create({ data }) {
   try {
@@ -65,11 +51,6 @@ export function* create({ data }) {
   } catch(err) {}
 }
 
-export function* watchCreateUser() {
-  yield takeEvery(CREATE_USER_ASYNC, create)
-}
-
-
 export function* update({ data }) {
   try {
     yield updateUserFetch(data);
@@ -77,6 +58,13 @@ export function* update({ data }) {
   } catch(err) {}
 }
 
-export function* watchUpdateUser() {
-  yield takeEvery(UPDATE_USER_ASYNC, update)
+
+export function* watchAllUser() {
+  yield all([
+    takeEvery(GET_USER_ASYNC, getUser),
+    takeEvery(LOGIN_USER_ASYNC, loginUser),
+    takeEvery(LOGOUT_USER_ASYNC, logoutUser),
+    takeEvery(CREATE_USER_ASYNC, create),
+    takeEvery(UPDATE_USER_ASYNC, update)
+  ]);
 }

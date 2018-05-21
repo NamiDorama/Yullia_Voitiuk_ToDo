@@ -1,32 +1,14 @@
 import { all } from 'redux-saga/effects';
 import {
-  watchUser,
-  watchLoginUser,
-  watchLogoutUser,
-  watchCreateUser,
-  watchUpdateUser
+  watchAllUser
 } from './userSagas';
 import {
-  watchGetTasksList,
-  watchUpdateTask,
-  watchDeleteTask,
-  watchGetOneTask,
-  watchCreateTask,
-  watchUpdateCurrentTask
+  watchAllTask
 } from './tasksSagas';
 
 export function* rootSaga() {
   yield all([
-    watchUser(),
-    watchLoginUser(),
-    watchLogoutUser(),
-    watchCreateUser(),
-    watchUpdateUser(),
-    watchGetTasksList(),
-    watchUpdateTask(),
-    watchDeleteTask(),
-    watchGetOneTask(),
-    watchCreateTask(),
-    watchUpdateCurrentTask()
+    watchAllUser(),
+    watchAllTask()
   ]);
 }

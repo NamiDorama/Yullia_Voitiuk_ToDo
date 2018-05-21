@@ -26,7 +26,7 @@ export class UsersTasks extends Component {
           </ul>
         </div>
         <p className="link-to">
-          <Link activeClassName="active" to="/tasks">
+          <Link to="/tasks">
             Go to the task list
           </Link>
         </p>

@@ -1,4 +1,5 @@
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, all } from 'redux-saga/effects';
+
 import {
   GET_TASKS_LIST_ASYNC,
   getTasks,
@@ -31,10 +32,6 @@ export function* getTasksList() {
   } catch(err) {}
 }
 
-export function* watchGetTasksList() {
-  yield takeEvery(GET_TASKS_LIST_ASYNC, getTasksList)
-}
-
 export function* getTask({ data }) {
   try {
     const task = yield getTaskByIdFetch(data);
@@ -42,21 +39,14 @@ export function* getTask({ data }) {
   } catch(err) {}
 }
 
-export function* watchGetOneTask() {
-  yield takeEvery(GET_TASK_BY_ID_ASYNC, getTask)
-}
-
 // Create task
 
 export function* createNewTask({ data }) {
   try {
     const task =yield createTaskFetch(data);
+    task.updated = true;
     yield put(createTask(task));
   } catch(err) {}
-}
-
-export function* watchCreateTask() {
-  yield takeEvery(CREATE_TASK_ASYNC, createNewTask)
 }
 
 // Updating task
@@ -68,20 +58,12 @@ export function* update({ data }) {
   } catch(err) {}
 }
 
-export function* watchUpdateTask() {
-  yield takeEvery(UPDATE_TASK_ASYNC, update)
-}
-
 export function* updateCurrent({ data }) {
   try {
     const task = yield updateTaskFetch(data);
     task.updated = true;
     yield put(updateCurrentTask(task));
   } catch(err) {}
-}
-
-export function* watchUpdateCurrentTask() {
-  yield takeEvery(UPDATE_CURRENT_TASK_ASYNC, updateCurrent)
 }
 
 // Deleting task
@@ -93,6 +75,14 @@ export function* delTask({ data }) {
   } catch(err) {}
 }
 
-export function* watchDeleteTask() {
-  yield takeEvery(DELETE_TASK_ASYNC, delTask)
+
+export function* watchAllTask() {
+  yield all([
+    takeEvery(GET_TASKS_LIST_ASYNC, getTasksList),
+    takeEvery(GET_TASK_BY_ID_ASYNC, getTask),
+    takeEvery(CREATE_TASK_ASYNC, createNewTask),
+    takeEvery(UPDATE_TASK_ASYNC, update),
+    takeEvery(UPDATE_CURRENT_TASK_ASYNC, updateCurrent),
+    takeEvery(DELETE_TASK_ASYNC, delTask)
+  ]);
 }
