@@ -1,6 +1,7 @@
 import { Navigation } from '../Navigation/index';
 import { logoutUser } from '../../store';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import './header.scss';
 
 const navList = ['Home', 'Tasks', 'Contacts'];
@@ -26,4 +27,4 @@ export const HeaderComponent = ({ user, dispatch }) => {
   );
 };
 
-export const Header = connect()(HeaderComponent);
+export const Header = withRouter(connect()(HeaderComponent));

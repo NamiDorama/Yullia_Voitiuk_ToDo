@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const images = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
@@ -19,9 +19,8 @@ const plugins = [
     template: 'index.html'
   }),
   new webpack.HotModuleReplacementPlugin(),
-  new ExtractTextPlugin({
-    filename: 'styles.css',
-    allChunks: true
+  new MiniCssExtractPlugin({
+    filename: 'styles.css'
   }),
 	new webpack.ProvidePlugin({
 		React: 'react',
@@ -61,13 +60,11 @@ module.exports = {
 
       {
         test: /\.s?css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {loader: "css-loader"},
-            {loader: "sass-loader"}
-          ]
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {loader: "css-loader"},
+          {loader: "sass-loader"}
+        ]
       },
 
       {
