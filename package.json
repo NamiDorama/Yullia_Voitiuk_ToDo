@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --config ./config/jest.config.js --watchAll --coverage=false",
-    "start": "node_modules/.bin/webpack --config config/webpack.config.js --mode=production",
+    "start": "node_modules/.bin/webpack --config config/webpack.config.prod.js --mode=production",
     "dev": "node_modules/.bin/webpack --config config/webpack.config.js --mode=development --watch",
-    "hmr": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.config.js --open",
+    "hmr": "./node_modules/.bin/webpack-dev-server --config ./config/webpack.config.dev.js --open",
     "lint": "node node_modules/eslint/bin/eslint.js src/**/**.js"
   },
   "keywords": [

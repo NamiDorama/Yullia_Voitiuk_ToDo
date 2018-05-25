@@ -1,0 +1,9 @@
+#content {
+  margin: 0 auto;
+  width: 65%;
+  min-height: 350px;
+  border: 3px double #7a7a7a;
+  padding: 0 20px 20px; }
+  #content h2 {
+    border-bottom: 1px solid #7a7a7a; }
+

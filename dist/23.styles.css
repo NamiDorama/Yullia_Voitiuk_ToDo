@@ -1,0 +1,20 @@
+.get-location input {
+  min-width: 120px;
+  margin: 10px;
+  padding: 10px 20px;
+  border: 1px solid #908600;
+  box-shadow: 1px 2px 5px #908600;
+  border-radius: 20px;
+  outline: none;
+  background-color: #fff890; }
+
+.get-location button {
+  margin: 25px 0 0 10px;
+  background-color: #3696cf;
+  border: 1px solid #1f5c80;
+  box-shadow: 1px 2px 5px #1f5c80; }
+
+.get-location span {
+  display: inline-block;
+  margin: 25px; }
+

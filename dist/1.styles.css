@@ -1,0 +1,8 @@
+.users-wrapper {
+  display: flex;
+  justify-content: flex-start; }
+  .users-wrapper .users {
+    width: 20%; }
+  .users-wrapper .posts-wrapper {
+    width: 70%; }
+

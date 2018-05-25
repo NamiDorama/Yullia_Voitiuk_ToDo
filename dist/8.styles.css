@@ -1,0 +1,9 @@
+.edit input {
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: 1px solid #908600;
+  box-shadow: 1px 2px 5px #908600;
+  border-radius: 20px;
+  outline: none;
+  background-color: #fff890; }
+

@@ -9,7 +9,7 @@ export const RouteForLogin = () => (
   <Switch>
     <Route path="/" exact component={Main} />
     <Route path="/home" exact component={Main} />
-    <Route path="/tasks" exact render={() => <Async name="TaskListTab" path="pages/TaskListTab" />} />
+    <Route path="/tasks" exact render={({ history }) => <Async name="TaskListTab" history={history} path="pages/TaskListTab" />} />
     <Route path="/tasks/:task" component={Task} />
     <Route path="/contacts" component={GetLocation} />
     <Route path="/user_page" render={() => <Async name="UserPage" path="pages/UserPage" />} />

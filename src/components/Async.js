@@ -20,6 +20,6 @@ export class Async extends Component {
   render() {
     const { Async, err } = this.state;
 
-    return  err ? <span>Unable to load {this.props.name}</span> : Async && <Async /> ;
+    return  err ? <span>Unable to load {this.props.name}</span> : Async && <Async {...this.props} /> ;
   }
 }

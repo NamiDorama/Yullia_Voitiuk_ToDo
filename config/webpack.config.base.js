@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -13,19 +12,17 @@ let stylesLoader = [
 ];
 
 const plugins = [
-  new CleanWebpackPlugin(['dist', 'dist/*.*']),
   new HtmlWebpackPlugin({
     title: 'Test app',
     template: 'index.html'
   }),
-  new webpack.HotModuleReplacementPlugin(),
   new MiniCssExtractPlugin({
     filename: 'styles.css'
   }),
-	new webpack.ProvidePlugin({
-		React: 'react',
-		Component: ['react', 'Component']
-	}),
+  new webpack.ProvidePlugin({
+    React: 'react',
+    Component: ['react', 'Component']
+  }),
   new CopyWebpackPlugin([
     ...images.map(ext => ({ from: `**/*/*.${ext}`, to: 'img/[name].[ext]' }))
   ])
@@ -78,15 +75,15 @@ module.exports = {
         }]
       },
 
-	    {
-		    enforce: 'pre',
-		    test: /\.js$/,
-		    exclude: /node_modules/,
-		    loader: 'eslint-loader',
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
         options: {
           emitWarning: true
         }
-	    }
+      }
     ]
   },
 
@@ -98,14 +95,6 @@ module.exports = {
     },
   },
 
-  mode: 'development',
-
-  devServer: {
-    contentBase: path.resolve('dist'),
-    publicPath: '/',
-    port: 9000,
-    hot: true,
-    historyApiFallback: true
-  }
+  mode: 'development'
 };
 
